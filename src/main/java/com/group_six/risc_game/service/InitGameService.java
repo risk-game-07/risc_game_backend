@@ -4,5 +4,5 @@ import com.group_six.risc_game.domain.vo.request.AddGameReq;
 import com.group_six.risc_game.domain.vo.response.AddGameResp;
 
 public interface InitGameService {
-    AddGameResp addGame(int playerId);
+    public AddGameResp addGame(int playerId, int roomSize);
 }

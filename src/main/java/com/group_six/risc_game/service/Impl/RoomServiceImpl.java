@@ -5,5 +5,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RoomServiceImpl implements RoomService {
-
+    @Override
+    public String findAvliableRoom(int roomSize){
+        return "";
+    }
 }

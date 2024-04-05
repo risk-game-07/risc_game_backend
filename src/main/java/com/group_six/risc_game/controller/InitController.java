@@ -31,7 +31,7 @@ public class InitController {
     @GetMapping("/addGame")
     @ApiOperation("add to the game")
     public ApiResult<AddGameResp> addGame(@Valid AddGameReq request) {
-        return ApiResult.success(initGameService.addGame(request.getPlayerId()));
+        return ApiResult.success(initGameService.addGame(request.getPlayerId(), request.getRoomSize()));
     }
 
 
