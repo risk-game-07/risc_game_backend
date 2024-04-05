@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 public class RoomServiceImpl implements RoomService {
     @Override
     public String findAvliableRoom(int roomSize){
-        return "";
+        // TODO: support mutiple rooms in the future
+        return "001";
     }
 }
