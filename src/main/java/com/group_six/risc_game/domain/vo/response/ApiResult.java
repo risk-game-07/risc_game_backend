@@ -3,6 +3,7 @@ package com.group_six.risc_game.domain.vo.response;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import com.group_six.risc_game.exception.ErrorEnum;
 
 /**
  * Description: reponse for gttp
