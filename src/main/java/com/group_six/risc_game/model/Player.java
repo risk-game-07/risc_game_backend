@@ -5,5 +5,5 @@ import lombok.Data;
 
 public interface Player{
 
-    long getPlayerId();
+    String getPlayerId();
 }
