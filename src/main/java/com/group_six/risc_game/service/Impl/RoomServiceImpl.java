@@ -18,8 +18,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public long getCurPlayerNum(int roomSize){
-        long curPlayer = redisUtils.getListLength(Integer.toString(roomSize));
-        return curPlayer > roomSize ? roomSize : curPlayer;
+        return redisUtils.getListLength(Integer.toString(roomSize)) % roomSize;
     }
 
 
