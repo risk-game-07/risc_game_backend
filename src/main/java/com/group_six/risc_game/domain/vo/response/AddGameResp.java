@@ -17,8 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddGameResp {
-    @ApiModelProperty("the game room id")
-    private Long roomId;
-    @ApiModelProperty("the max number of players in the room")
-    private Integer maxNum;
+    @ApiModelProperty("current number of people in the room")
+    private Long curNum;
 }

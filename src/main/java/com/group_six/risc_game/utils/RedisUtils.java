@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -14,7 +15,7 @@ public class RedisUtils {
 
     /**
      * @param key
-     * @return value
+     * @return value ( if do not find such key will return null)
      */
     public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
@@ -78,6 +79,26 @@ public class RedisUtils {
             return false;
         }
         return true;
+    }
+
+    // add the element to the end of the list
+    public void addToListTail(String key, String value) {
+        redisTemplate.opsForList().rightPush(key, value);
+    }
+
+    // get the element from the head
+    public String getFromListHead(String key) {
+        return (String)redisTemplate.opsForList().leftPop(key);
+    }
+
+    // get the length of the list
+    public Long getListLength(String key) {
+        return redisTemplate.opsForList().size(key);
+    }
+
+    // get elements form given range
+    public List<Object> getListRange(String key, long start, long end) {
+        return redisTemplate.opsForList().range(key, start, end);
     }
 
 }

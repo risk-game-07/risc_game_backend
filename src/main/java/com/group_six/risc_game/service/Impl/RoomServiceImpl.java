@@ -1,13 +1,26 @@
 package com.group_six.risc_game.service.Impl;
 
 import com.group_six.risc_game.service.RoomService;
+import com.group_six.risc_game.utils.RedisUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RoomServiceImpl implements RoomService {
+
+    @Autowired
+    private RedisUtils redisUtils;
+
     @Override
-    public String findAvliableRoom(int roomSize){
-        // TODO: support mutiple rooms in the future
-        return "001";
+    public void addToRoomWaitList(int playerId, int roomSize){
+        redisUtils.addToListTail(Integer.toString(roomSize), Integer.toString(playerId));
     }
+
+    @Override
+    public long getCurPlayerNum(int roomSize){
+        long curPlayer = redisUtils.getListLength(Integer.toString(roomSize));
+        return curPlayer > roomSize ? roomSize : curPlayer;
+    }
+
+
 }

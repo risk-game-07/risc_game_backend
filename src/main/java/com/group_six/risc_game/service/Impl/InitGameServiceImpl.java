@@ -14,7 +14,8 @@ public class InitGameServiceImpl implements InitGameService {
     RoomService roomService;
     public AddGameResp addGame(int playerId, int roomSize){
         // find avaliable game
-        String roomId = roomService.findAvliableRoom(roomSize);
-
+        roomService.addToRoomWaitList(playerId, roomSize);
+        // add to the room
+        return new AddGameResp(roomService.getCurPlayerNum(roomSize));
     }
 }
