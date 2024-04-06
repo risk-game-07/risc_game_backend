@@ -1,4 +1,4 @@
 package com.group_six.risc_game.factory;
 
-public class SoldierFactory {
+public interface SoldierFactory {
 }

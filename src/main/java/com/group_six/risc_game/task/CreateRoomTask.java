@@ -1,5 +1,6 @@
 package com.group_six.risc_game.task;
 
+import com.group_six.risc_game.model.GameRooms;
 import com.group_six.risc_game.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,6 +14,8 @@ public class CreateRoomTask {
 
     @Autowired
     RedisUtils redisUtils;
+    @Autowired
+    GameRooms gameRooms;
 
     // each second run this task one time
     @Scheduled(fixedRate = 1000)
@@ -24,10 +27,12 @@ public class CreateRoomTask {
                 playersId.add(redisUtils.getFromListHead("2"));
             // use factory to create
 
+
         }
+        // 3 players room
+
         // 4 players room
 
-        // 6 players room
     }
 
 
