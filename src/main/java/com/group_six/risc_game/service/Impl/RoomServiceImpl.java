@@ -12,8 +12,8 @@ public class RoomServiceImpl implements RoomService {
     private RedisUtils redisUtils;
 
     @Override
-    public void addToRoomWaitList(int playerId, int roomSize){
-        redisUtils.addToListTail(Integer.toString(roomSize), Integer.toString(playerId));
+    public void addToRoomWaitList(String playerId, int roomSize){
+        redisUtils.addToListTail(Integer.toString(roomSize), playerId);
     }
 
     @Override

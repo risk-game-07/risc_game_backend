@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class AddGameReq {
     @NotNull
-    int playerId;
+    String playerId;
     @NotNull
     int roomSize;
 }

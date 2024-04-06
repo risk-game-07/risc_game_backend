@@ -23,11 +23,12 @@ public class GameRoom {
         // create territory factory
 
         // random assingn territories for each player
-        this.worldMap = BasicWorldMap();
+
     }
 
     private HashMap<String, Territory> randomAssign(int roomSize, List<String> playersId){
         // the number of player equal to the number of territory
-
+        // TODO finish the function
+        return new HashMap<>();
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class InitGameServiceImpl implements InitGameService {
     @Autowired
     RoomService roomService;
-    public AddGameResp addGame(int playerId, int roomSize){
+    public AddGameResp addGame(String playerId, int roomSize){
         // find avaliable game
         roomService.addToRoomWaitList(playerId, roomSize);
         // add to the room
