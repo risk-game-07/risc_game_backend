@@ -19,4 +19,8 @@ public class GameRooms {
 
         // create
     }
+
+    public GameRoom getGameRoom(String roomId){
+        return rooms.get(roomId);
+    }
 }
