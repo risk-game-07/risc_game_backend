@@ -5,5 +5,8 @@ import java.util.List;
 public interface Territory {
     public void setOwner(String owner);
 
+    //getOwner()
+    String getOwner();
+
     List<Territory> getNeighbors();
 }

@@ -24,7 +24,7 @@ public class MovementChecker extends AbstractChecker{
         visited.add(current);
         if (current.equals(to)) return true;
 
-        for (Territory t : current.getNeighbor()) {
+        for (Territory t : current.getNeighbors()) {
             if (dfs(t, to, player, visited)) return true;
         }
         return false;
