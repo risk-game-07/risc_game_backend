@@ -1,5 +1,7 @@
 package com.group_six.risc_game.service;
 
+import com.group_six.risc_game.domain.vo.response.WaitOthersResp;
+
 public interface RoomService {
     /**
      *based on the roomsize, add to the waiting list of the room
@@ -10,5 +12,5 @@ public interface RoomService {
     public long getCurPlayerNum(int roomSize);
 
     // check whether player can play
-    public boolean isValid(String playerId);
+    public WaitOthersResp getRoomId(String playerId);
 }

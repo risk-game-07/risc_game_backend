@@ -40,7 +40,7 @@ public class CreateRoomTask {
         // use factory to create
         String roomId = gameRooms.createRoom(nums, playersId);
 
-        // ad to the finish list
+        // add to the finish list
         for(String playerId : playersId)
             redisUtils.set(playerId, roomId);
     }
