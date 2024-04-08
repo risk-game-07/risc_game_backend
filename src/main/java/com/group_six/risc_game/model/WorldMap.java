@@ -1,5 +1,7 @@
 package com.group_six.risc_game.model;
 
+import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 

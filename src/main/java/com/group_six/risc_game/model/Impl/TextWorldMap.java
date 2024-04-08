@@ -2,10 +2,12 @@ package com.group_six.risc_game.model.Impl;
 
 import com.group_six.risc_game.model.Territory;
 import com.group_six.risc_game.model.WorldMap;
+import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
 
+@Data
 public class TextWorldMap implements WorldMap{
     // key: playId, value: Territory
     Map<String, Territory> terrtories;
