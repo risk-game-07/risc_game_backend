@@ -12,7 +12,7 @@ import com.group_six.risc_game.exception.ErrorEnum;
 @Data
 @ApiModel("Common http response")
 public class ApiResult<T> {
-    @ApiModelProperty("wether success: true or false")
+    @ApiModelProperty("whether success: true or false")
     private Boolean success;
     @ApiModelProperty("error code")
     private Integer errCode;
