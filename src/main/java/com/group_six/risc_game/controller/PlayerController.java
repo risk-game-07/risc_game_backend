@@ -1,9 +1,8 @@
 package com.group_six.risc_game.controller;
 
 import com.group_six.risc_game.domain.vo.domain.UserActionDTO;
-import com.group_six.risc_game.domain.vo.request.AddGameReq;
-import com.group_six.risc_game.domain.vo.response.AddGameResp;
 import com.group_six.risc_game.domain.vo.response.ApiResult;
+import com.group_six.risc_game.domain.vo.response.UserActionResp;
 import com.group_six.risc_game.service.PlayerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,8 +23,8 @@ public class PlayerController {
     PlayerService playerService;
     @GetMapping("/action")
     @ApiOperation("the action per round")
-    public ApiResult<> receiveAction(@Valid UserActionDTO action) {
+    public ApiResult<UserActionResp> receiveAction(@Valid UserActionDTO action) {
         // TODO arguments?
-        return ApiResult.success();
+        return ApiResult.success(playerService.executeActions());
     }
 }

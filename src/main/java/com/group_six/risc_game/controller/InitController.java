@@ -2,10 +2,12 @@ package com.group_six.risc_game.controller;
 
 import com.group_six.risc_game.domain.vo.domain.AssignUnitDTO;
 import com.group_six.risc_game.domain.vo.request.AddGameReq;
+import com.group_six.risc_game.domain.vo.request.GetStatusReq;
 import com.group_six.risc_game.domain.vo.request.WaitAddGameReq;
 import com.group_six.risc_game.domain.vo.response.AddGameResp;
 import com.group_six.risc_game.domain.vo.response.ApiResult;
 import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
+import com.group_six.risc_game.domain.vo.response.GetStatusResp;
 import com.group_six.risc_game.service.InitGameService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +38,12 @@ public class InitController {
     @ApiOperation("add to the game")
     public ApiResult<AddGameResp> addGame(@Valid AddGameReq request) {
         return ApiResult.success(initGameService.addGame(request.getPlayerId(), request.getRoomSize()));
+    }
+
+    @GetMapping("/getStatus")
+    @ApiOperation("get the current status of initialization")
+    public ApiResult<GetStatusResp> getStatus(@Valid GetStatusReq request) {
+        return ApiResult.success(initGameService.getStatus(request.getRoomSize()));
     }
 
     @PostMapping("/assignUnit")
