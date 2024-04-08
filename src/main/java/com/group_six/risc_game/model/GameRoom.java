@@ -1,6 +1,8 @@
 package com.group_six.risc_game.model;
 
 import com.group_six.risc_game.domain.vo.domain.UserActionDTO;
+import com.group_six.risc_game.domain.vo.enums.ActionTypeEnum;
+import com.group_six.risc_game.domain.vo.request.GameActionReq;
 import com.group_six.risc_game.factory.Impl.TextTerritoryFactory;
 import com.group_six.risc_game.factory.TerritoryFactory;
 import com.group_six.risc_game.model.Impl.TextPlayer;
@@ -55,6 +57,14 @@ public class GameRoom {
 
     }
 
+    public Player getPlayer(String playerId){
+        return playernameMap.get(playerId);
+    }
+
+    public Territory getTerritory(String territoryName){
+        return territoryNameMap.get(territoryName);
+    }
+
     private HashMap<String, Territory> randomAssign(int roomSize, List<String> playersId){
         // the number of player equal to the number of territory
         // TODO finish the function
@@ -81,9 +91,22 @@ public class GameRoom {
     }
 
 
-
-    public String receiveOrder(UserActionDTO userActionDTO){
-        return null;
+    // @return null :success
+    public String receiveOrder(GameActionReq gameActionReq){
+        Player curPlayer = playernameMap.get(gameActionReq.getPlayerId());
+        if(gameActionReq.getType() == "attack"){
+            curPlayer.storeAttack(new ActionLog(
+                    gameActionReq.getFrom(),
+                    gameActionReq.getTo(),
+                    gameActionReq.getUnits()
+            ));
+        }else if(gameActionReq.getType() == "move"){
+            curPlayer.storeMove(new ActionLog(
+                    gameActionReq.getFrom(),
+                    gameActionReq.getTo(),
+                    gameActionReq.getUnits()
+            ));
+        }
     }
 
 }

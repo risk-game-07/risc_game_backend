@@ -1,5 +1,6 @@
 package com.group_six.risc_game.model.Impl;
 
+import com.group_six.risc_game.model.ActionLog;
 import com.group_six.risc_game.model.Player;
 import com.group_six.risc_game.model.Territory;
 
@@ -9,13 +10,18 @@ public class TextPlayer implements Player {
     private String playerId;
     List<Territory> territories;
     Map<String, Territory> territorNameCache;
+    List<ActionLog> attackLogs;
+    List<ActionLog> defendenceLogs;
 
     public TextPlayer(String str){
         // init player id
         playerId = str;
         territories = new ArrayList<>();
         territorNameCache = new HashMap<>();
+        attackLogs = new ArrayList<>();
+        defendenceLogs = new ArrayList<>();
     }
+
 
     @Override
     public boolean isMyTerritory(String territoryName){
@@ -44,4 +50,14 @@ public class TextPlayer implements Player {
     public HashSet<Territory> getTerritories() {
         return null;
     }
+    @Override
+    public void storeAttack(ActionLog actionLog) {
+        attackLogs.add(actionLog);
+    }
+
+    @Override
+    public void storeMove(ActionLog actionLog){
+        defendenceLogs.add(actionLog);
+    }
+
 }

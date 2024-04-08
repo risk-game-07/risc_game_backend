@@ -23,8 +23,6 @@ public class InitGameServiceImpl implements InitGameService {
         return new AddGameResp(roomService.getCurPlayerNum(roomSize));
     }
 
-    public AssignUnitResp assignUnit(Map<String, Integer> assignPattern, String playerId) {
 
-        return new AssignUnitResp(playerId);
-    }
+
 }

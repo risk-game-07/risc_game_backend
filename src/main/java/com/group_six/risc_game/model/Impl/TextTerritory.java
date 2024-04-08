@@ -37,6 +37,12 @@ public class TextTerritory implements Territory {
         soldiers = new ArrayList<>();
         owner = null;
     }
+    @Override
+    public void setSoliders(int units){
+        for(int i = 0; i < units; i++){
+            soldiers.add(new TextSolider());
+        }
+    }
 
     public void setOwner(Player owner) {
         this.owner = owner;

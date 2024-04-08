@@ -37,12 +37,6 @@ public class InitController {
         return ApiResult.success(initGameService.addGame(request.getPlayerId(), request.getRoomSize()));
     }
 
-    @GetMapping("/assignUnit")
-    @ApiOperation("assign units of the territory")
-    public ApiResult<AssignUnitResp> assignUnit(@Valid AssignUnitDTO unit) {
-        return ApiResult.success(initGameService.assignUnit(unit.getAssignPattern(), unit.getPlayerId()));
-    }
-
     @GetMapping("/waitOther")
     @ApiOperation("wait other players adding to the game")
     public ApiResult<AssignUnitResp> waitOther(@Valid WaitAddGameReq request) {

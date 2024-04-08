@@ -16,4 +16,6 @@ public class UserActionDTO {
     String from;
     // destination area
     String to;
+    // units
+    int units;
 }

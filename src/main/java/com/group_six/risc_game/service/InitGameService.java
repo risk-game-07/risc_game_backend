@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface InitGameService {
     public AddGameResp addGame(String playerId, int roomSize);
-    public AssignUnitResp assignUnit(Map<String, Integer> assignPattern, String playerId);
+
 
 }

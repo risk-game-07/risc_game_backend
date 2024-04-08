@@ -9,6 +9,8 @@ public interface Territory {
     //getOwner()
     public String getOwner();
 
+    // set soliders
+    public void setSoliders(int units);
 
     List<Territory> getNeighbors();
 }
