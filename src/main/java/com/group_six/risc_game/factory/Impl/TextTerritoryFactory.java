@@ -5,12 +5,14 @@ import com.group_six.risc_game.model.Impl.TextTerritory;
 import com.group_six.risc_game.model.Territory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TextTerritoryFactory implements TerritoryFactory {
     @Override
-    public List<Territory> makeAllTerritories() {
-        List<Territory> territories = new ArrayList<>();
+    public Map<String, Territory> makeAllTerritories() {
+        Map<String, Territory> territories = new HashMap<>();
         String[] nameList = {
                 "Avalon", "Bristol", "Cypress", "Denver",
                 "Everest", "Florence", "Gibraltar", "Haven",
@@ -19,7 +21,7 @@ public class TextTerritoryFactory implements TerritoryFactory {
         // for text terriotory you will get 12 Territories
         // TODO: change the hard code of 12
         for(int i = 0; i < 12; i++){
-            territories.add(new TextTerritory(nameList[i]));
+            territories.put(nameList[i],new TextTerritory(nameList[i]));
         }
         return territories;
     }

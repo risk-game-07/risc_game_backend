@@ -2,7 +2,9 @@ package com.group_six.risc_game.model;
 
 import com.group_six.risc_game.domain.vo.domain.UserActionDTO;
 import com.group_six.risc_game.domain.vo.enums.ActionTypeEnum;
+import com.group_six.risc_game.factory.Impl.TextTerritoryFactory;
 import com.group_six.risc_game.model.Impl.TextPlayer;
+import com.group_six.risc_game.model.Impl.TextWorldMap;
 import com.group_six.risc_game.utils.AbstractChecker;
 import com.group_six.risc_game.utils.AttackChecker;
 import com.group_six.risc_game.utils.MovementChecker;
@@ -13,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 public class GameRoom {
-    private int roomSize;
 
+    private int roomSize;
     List<Player> players;
     Map<String, Player> playernameMap;
     WorldMap worldMap;
@@ -39,8 +41,13 @@ public class GameRoom {
         attackChecker = new AttackChecker(null);
         moveChecker = new MovementChecker(null);
         // create territory factory
-
+        worldMap = new TextWorldMap(new TextTerritoryFactory().makeAllTerritories());
         // random assingn territories for each player
+
+    }
+    private assignTerritories(){
+        // store the number of terrritory for each player
+        int num = roomSize / worldMap.getTerrtoryNum();
 
     }
 

@@ -9,8 +9,14 @@ import java.util.Map;
 public class TextWorldMap implements WorldMap{
     // key: playId, value: Territory
     Map<String, Territory> terrtories;
-    void BasicWorldMap(Map<String, Territory> terrtories){
+
+    public TextWorldMap(Map<String, Territory> terrtories){
         this.terrtories = terrtories;
+    }
+
+    @Override
+    public int getTerrtoryNum(){
+        return terrtories.size();
     }
 
     @Override
