@@ -5,6 +5,7 @@ import com.group_six.risc_game.factory.Impl.TextTerritoryFactory;
 import com.group_six.risc_game.factory.TerritoryFactory;
 import com.group_six.risc_game.model.Impl.TextPlayer;
 import com.group_six.risc_game.utils.AbstractChecker;
+import com.group_six.risc_game.utils.AttackChecker;
 
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class GameRoom {
     private int roomSize;
     List<Player> players;
     Map<String, Player> playernameMap;
+    Map<String, Territory> territoryNameMap;
     String roomId;
 
     public GameRoom(int roomSize, List<String> playersId, String roomID){
@@ -44,8 +46,11 @@ public class GameRoom {
         int num = 12 / roomSize;
         int index = 0;
         for(Player player : players){
-            for(int i = 0; i < num; i++)
-                player.assignTerritory(territoryFactory.makeTerritory(index + i));
+            for(int i = 0; i < num; i++) {
+                Territory territory = territoryFactory.makeTerritory(index + i);
+                player.assignTerritory(territory);
+                territoryNameMap.put(territory.getTerritoryName(), territory);
+            }
             index += num;
         }
 
@@ -58,14 +63,22 @@ public class GameRoom {
     }
 
     String erroMessage tryAttack(String playerId, String from, String to){
+        //TODO: change it to reposibiliy link list
         // choose player
         Player curPlayer = playernameMap.get(playerId);
         if(curPlayer == null){
             return "cannot find this player ID in " + roomId;
         }
-
-        
-
+        //check whether source territory blong to player
+        if(!curPlayer.isMyTerritory(from)){
+            return from + " do not blong to " + playerId;
+        }
+        // check attack rule
+        AbstractChecker attackChecker = new AttackChecker(null);
+        if(!attackChecker.checkAction( territoryNameMap.get(from), territoryNameMap.get(to),curPlayer)){
+            return "you cannot attack from " + from + " to " + to;
+        }
+        return null;
     }
 
     String erroMessage tryDefendence(String playerId, String from, String to){
