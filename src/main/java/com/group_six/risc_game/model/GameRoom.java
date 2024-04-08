@@ -1,11 +1,12 @@
 package com.group_six.risc_game.model;
 
 import com.group_six.risc_game.domain.vo.domain.UserActionDTO;
-import com.group_six.risc_game.domain.vo.enums.ActionTypeEnum;
+import com.group_six.risc_game.factory.Impl.TextTerritoryFactory;
+import com.group_six.risc_game.factory.TerritoryFactory;
 import com.group_six.risc_game.model.Impl.TextPlayer;
 import com.group_six.risc_game.utils.AbstractChecker;
 import com.group_six.risc_game.utils.AttackChecker;
-import com.group_six.risc_game.utils.MovementChecker;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,16 +14,15 @@ import java.util.List;
 import java.util.Map;
 
 public class GameRoom {
-    private int roomSize;
 
+    private int roomSize;
     List<Player> players;
     Map<String, Player> playernameMap;
-    WorldMap worldMap;
-    AbstractChecker attackChecker;
-    AbstractChecker moveChecker;
+    Map<String, Territory> territoryNameMap;
+    String roomId;
 
-
-    public GameRoom(int roomSize, List<String> playersId){
+    public GameRoom(int roomSize, List<String> playersId, String roomID){
+        this.roomId = roomID;
         // create Players
         this.players = new ArrayList<>();
         this.playernameMap = new HashMap<>();
@@ -34,13 +34,24 @@ public class GameRoom {
             playernameMap.put(playerId, player);
         }
         this.roomSize = roomSize;
-        // init checkers
-        //TODO: change it to checker list
-        attackChecker = new AttackChecker(null);
-        moveChecker = new MovementChecker(null);
-        // create territory factory
+        // init assign
+        randomAssignTerritory();
+    }
 
-        // random assingn territories for each player
+    private void randomAssignTerritory(){
+        //TODO: change it to random assign
+        //TODO: change the hard code 12
+        TerritoryFactory territoryFactory= new TextTerritoryFactory();
+        int num = 12 / roomSize;
+        int index = 0;
+        for(Player player : players){
+            for(int i = 0; i < num; i++) {
+                Territory territory = territoryFactory.makeTerritory(index + i);
+                player.assignTerritory(territory);
+                territoryNameMap.put(territory.getTerritoryName(), territory);
+            }
+            index += num;
+        }
 
     }
 
@@ -50,16 +61,29 @@ public class GameRoom {
         return new HashMap<>();
     }
 
-    String erroMessage tryAttack(String playerId, String from, String to){
-        //if( attackChecker.checkAction(playernameMap.get(playerId), )
+    String tryAttack(String playerId, String from, String to){
+        //TODO: change it to reposibiliy link list
+        // choose player
+        Player curPlayer = playernameMap.get(playerId);
+        if(curPlayer == null){
+            return "cannot find this player ID in " + roomId;
+        }
+        //check whether source territory blong to player
+        if(!curPlayer.isMyTerritory(from)){
+            return from + " do not blong to " + playerId;
+        }
+        // check attack rule
+        AbstractChecker attackChecker = new AttackChecker(null);
+        if(!attackChecker.checkAction( territoryNameMap.get(from), territoryNameMap.get(to),curPlayer)){
+            return "you cannot attack from " + from + " to " + to;
+        }
+        return null;
     }
 
-    String erroMessage tryDefendence(String playerId, String from, String to){
 
-    }
 
     public String receiveOrder(UserActionDTO userActionDTO){
-
+        return null;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.group_six.risc_game.service.Impl;
 
+import com.group_six.risc_game.domain.vo.response.WaitOthersResp;
 import com.group_six.risc_game.service.RoomService;
 import com.group_six.risc_game.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,23 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    // get the number of player in the room
     public long getCurPlayerNum(int roomSize){
-        return redisUtils.getListLength(Integer.toString(roomSize)) % roomSize;
+        long curNum = redisUtils.getListLength(Integer.toString(roomSize)) % roomSize;
+        return curNum == 0 ? roomSize : curNum;
+    }
+
+    @Override
+    // @return "0" means that still cannot add to the game
+    public WaitOthersResp getRoomId(String playerId) {
+        Object status = (redisUtils.get(playerId));
+        WaitOthersResp waitOthersResp = new WaitOthersResp();
+        if(status == null){
+            waitOthersResp.setRoomId("0");
+        } else{
+            waitOthersResp.setRoomId((String)status);
+        }
+        return waitOthersResp;
     }
 
 

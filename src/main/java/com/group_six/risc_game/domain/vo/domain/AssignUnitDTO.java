@@ -6,5 +6,6 @@ import java.util.Map;
 @Data
 public class AssignUnitDTO {
     String playerId;
+    String roomId;
     Map<String, Integer> assignPattern;
 }

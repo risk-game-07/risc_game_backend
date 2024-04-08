@@ -1,7 +1,7 @@
 package com.group_six.risc_game.model;
 
 import org.springframework.stereotype.Component;
-
+import cn.hutool.core.util.RandomUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +14,16 @@ public class GameRooms {
     public void GameRooms(){
         rooms = new HashMap<>();
     }
-    void createRoom(int roomSize, List<String> playerIds){
+    // @return: new room id
+    public String createRoom(int roomSize, List<String> playersId){
         // create room ID
-
-        // create
+        String roomId = RandomUtil.randomNumbers(6);
+        while (rooms.containsKey(roomId))
+            roomId = RandomUtil.randomNumbers(6);
+        // create new room
+        GameRoom gameRoom = new GameRoom(roomSize,playersId, roomId);
+        rooms.put(roomId, gameRoom);
+        return roomId;
     }
 
     public GameRoom getGameRoom(String roomId){
