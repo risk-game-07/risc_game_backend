@@ -1,5 +1,6 @@
 package com.group_six.risc_game.model.Impl;
 
+import com.group_six.risc_game.domain.vo.domain.UserActionDTO;
 import com.group_six.risc_game.model.Player;
 import com.group_six.risc_game.model.Territory;
 
@@ -8,6 +9,7 @@ import java.util.*;
 public class TextPlayer implements Player {
     private String playerId;
     List<Territory> territories;
+    List<UserActionDTO> userActionDTOS;
     Map<String, Territory> territorNameCache;
 
     public TextPlayer(String str){
@@ -41,5 +43,9 @@ public class TextPlayer implements Player {
     @Override
     public HashSet<Territory> getTerritories() {
         return null;
+    }
+    @Override
+    public void storeAction(UserActionDTO userActionDTO){
+        userActionDTOS.add(userActionDTO);
     }
 }
