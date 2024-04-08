@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +38,7 @@ public class InitController {
     }
 
 
-    @GetMapping("/assignUnit")
+    @PostMapping("/assignUnit")
     @ApiOperation("assign units of the territory")
     public ApiResult<AssignUnitResp> assignUnit(@Valid AssignUnitDTO unit) {
         return ApiResult.success(initGameService.assignUnit(unit.getAssignPattern(), unit.getPlayerId()));
