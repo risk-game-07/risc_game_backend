@@ -36,7 +36,6 @@ public class GameRoom {
         this.roomSize = roomSize;
         // init assign
         randomAssignTerritory();
-
     }
 
     private void randomAssignTerritory(){
@@ -62,7 +61,7 @@ public class GameRoom {
         return new HashMap<>();
     }
 
-    String erroMessage tryAttack(String playerId, String from, String to){
+    String tryAttack(String playerId, String from, String to){
         //TODO: change it to reposibiliy link list
         // choose player
         Player curPlayer = playernameMap.get(playerId);
@@ -81,12 +80,10 @@ public class GameRoom {
         return null;
     }
 
-    String erroMessage tryDefendence(String playerId, String from, String to){
 
-    }
 
     public String receiveOrder(UserActionDTO userActionDTO){
-
+        return null;
     }
 
 }

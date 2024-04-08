@@ -19,7 +19,7 @@ public class TextPlayer implements Player {
 
     @Override
     public boolean isMyTerritory(String territoryName){
-        return  territorNameCache.get(territoryName) == null ? false : true;
+        return territorNameCache.get(territoryName) != null;
     }
 
     @Override
@@ -35,6 +35,8 @@ public class TextPlayer implements Player {
     @Override
     public void assignTerritory(Territory territory){
         territories.add(territory);
+        // set owner for the territory
+        territory.setOwner(this);
         territorNameCache.put(territory.getTerritoryName(), territory);
     }
 

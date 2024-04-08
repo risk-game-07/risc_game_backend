@@ -1,6 +1,7 @@
 package com.group_six.risc_game.model.Impl;
 
 
+import com.group_six.risc_game.model.Player;
 import com.group_six.risc_game.model.Soldier;
 import com.group_six.risc_game.model.Territory;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 @Data
 public class TextTerritory implements Territory {
     // owner -> player id
-    String owner;
+    Player owner;
     // all soldier
     List<Soldier> soldiers;
 
@@ -37,8 +38,7 @@ public class TextTerritory implements Territory {
         owner = null;
     }
 
-
-    public void setOwner(String owner) {
+    public void setOwner(Player owner) {
         this.owner = owner;
     }
 

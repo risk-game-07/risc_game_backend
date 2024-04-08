@@ -17,8 +17,20 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    // get the number of player in the room
     public long getCurPlayerNum(int roomSize){
-        return redisUtils.getListLength(Integer.toString(roomSize)) % roomSize;
+        long curNum = redisUtils.getListLength(Integer.toString(roomSize)) % roomSize;
+        return curNum == 0 ? roomSize : curNum;
+    }
+
+    @Override
+    public boolean isValid(String playerId) {
+        Object status = (redisUtils.get(playerId));
+        if(status == null){
+            return false;
+        } else{
+
+        }
     }
 
 

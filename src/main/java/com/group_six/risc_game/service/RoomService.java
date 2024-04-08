@@ -9,4 +9,6 @@ public interface RoomService {
     // get the current number of people in the room
     public long getCurPlayerNum(int roomSize);
 
+    // check whether player can play
+    public boolean isValid(String playerId);
 }

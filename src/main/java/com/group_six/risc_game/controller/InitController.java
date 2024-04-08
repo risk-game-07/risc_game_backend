@@ -2,6 +2,7 @@ package com.group_six.risc_game.controller;
 
 import com.group_six.risc_game.domain.vo.domain.AssignUnitDTO;
 import com.group_six.risc_game.domain.vo.request.AddGameReq;
+import com.group_six.risc_game.domain.vo.request.WaitAddGameReq;
 import com.group_six.risc_game.domain.vo.response.AddGameResp;
 import com.group_six.risc_game.domain.vo.response.ApiResult;
 import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
@@ -36,12 +37,15 @@ public class InitController {
         return ApiResult.success(initGameService.addGame(request.getPlayerId(), request.getRoomSize()));
     }
 
-
     @GetMapping("/assignUnit")
     @ApiOperation("assign units of the territory")
     public ApiResult<AssignUnitResp> assignUnit(@Valid AssignUnitDTO unit) {
         return ApiResult.success(initGameService.assignUnit(unit.getAssignPattern(), unit.getPlayerId()));
     }
 
-
+    @GetMapping("/waitOther")
+    @ApiOperation("wait other players adding to the game")
+    public ApiResult<AssignUnitResp> waitOther(@Valid WaitAddGameReq request) {
+        return ApiResult.success();
+    }
 }

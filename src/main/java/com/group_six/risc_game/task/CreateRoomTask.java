@@ -20,19 +20,29 @@ public class CreateRoomTask {
     // each second run this task one time
     @Scheduled(fixedRate = 1000)
     public void create() {
-        // 2 players room
+        // 2-4 players room
         List<String> playersId = new ArrayList<>();
         if(redisUtils.getListLength("2") >= 2){
-            for(int i = 0; i < 2; i++)
-                playersId.add(redisUtils.getFromListHead("2"));
-            // use factory to create
-
-
+            createCertainNum(2);
         }
-        // 3 players room
+        else if(redisUtils.getListLength("3") >= 3){
+            createCertainNum(3);
+        }else if(redisUtils.getListLength("4") >= 4){
+            createCertainNum(4);
+        }
+    }
 
-        // 4 players room
+    private void createCertainNum(int nums){
+        List<String> playersId = new ArrayList<>();
+        for(int i = 0; i < nums; i++)
+            playersId.add(redisUtils.getFromListHead(Integer.toString(nums)));
 
+        // use factory to create
+        String roomId = gameRooms.createRoom(nums, playersId);
+
+        // ad to the finish list
+        for(String playerId : playersId)
+            redisUtils.set(playerId, roomId);
     }
 
 
