@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 
 public class AttackChecker extends AbstractChecker{
-    protected AttackChecker(AbstractChecker next) {
+    // change it to public
+    public AttackChecker(AbstractChecker next) {
         super(next);
     }
 

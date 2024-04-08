@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class MovementChecker extends AbstractChecker{
 
-    protected MovementChecker(AbstractChecker next) {
+    public MovementChecker(AbstractChecker next) {
         super(next);
     }
 

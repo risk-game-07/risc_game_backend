@@ -15,6 +15,7 @@ public enum ActionTypeEnum {
 
         ATTACK(1, "attack others"),
         MOVE(2, "move soliders"),
+        END(3,"end one round")
         ;
 
         private final Integer type;
