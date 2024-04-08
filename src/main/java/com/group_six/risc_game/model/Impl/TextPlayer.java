@@ -3,18 +3,23 @@ package com.group_six.risc_game.model.Impl;
 import com.group_six.risc_game.model.Player;
 import com.group_six.risc_game.model.Territory;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class TextPlayer implements Player {
     private String playerId;
     List<Territory> territories;
+    Map<String, Territory> territorNameCache;
 
     public TextPlayer(String str){
         // init player id
         playerId = str;
         territories = new ArrayList<>();
+        territorNameCache = new HashMap<>();
+    }
+
+    @Override
+    public boolean isMyTerritory(String territoryName){
+        return  territorNameCache.get(territoryName) == null ? false : true;
     }
 
     @Override
@@ -30,6 +35,7 @@ public class TextPlayer implements Player {
     @Override
     public void assignTerritory(Territory territory){
         territories.add(territory);
+        territorNameCache.put(territory.getTerritoryName(), territory);
     }
 
     @Override

@@ -11,18 +11,16 @@ import java.util.Map;
 
 public class TextTerritoryFactory implements TerritoryFactory {
     @Override
-    public Map<String, Territory> makeAllTerritories() {
-        Map<String, Territory> territories = new HashMap<>();
+    public Territory makeTerritory(int index) {
+        List<Territory> territories = new ArrayList<>();
         String[] nameList = {
                 "Avalon", "Bristol", "Cypress", "Denver",
                 "Everest", "Florence", "Gibraltar", "Haven",
                  "Ivy", "Jasper", "Kensington", "Luna"
         };
-        // for text terriotory you will get 12 Territories
-        // TODO: change the hard code of 12
-        for(int i = 0; i < 12; i++){
-            territories.put(nameList[i],new TextTerritory(nameList[i]));
-        }
-        return territories;
+
+        return new TextTerritory(nameList[index]);
+
     }
+
 }

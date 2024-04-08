@@ -8,5 +8,5 @@ import java.util.Map;
 public interface TerritoryFactory {
     // owner -> player id
     // List<Solider>
-    Map<String, Territory> makeAllTerritories();
+    public Territory makeTerritory(int index);
 }
