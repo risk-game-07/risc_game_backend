@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Component
 public class GameRooms {
-    Map<String,GameRoom> rooms;
+    private Map<String,GameRoom> rooms;
 
     public void GameRooms(){
         rooms = new HashMap<>();
@@ -25,7 +25,7 @@ public class GameRooms {
         rooms.put(roomId, gameRoom);
         return roomId;
     }
-
+    //@decript: if do not have, return null
     public GameRoom getGameRoom(String roomId){
         return rooms.get(roomId);
     }

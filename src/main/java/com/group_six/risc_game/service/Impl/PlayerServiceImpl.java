@@ -37,6 +37,13 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public GameActionResp receiveAction(GameActionReq gameActionReq){
         GameRoom gameRoom = gameRooms.getGameRoom(gameActionReq.getRoomId());
-        gameRoom.receiveOrder(gameActionReq);
+        GameActionResp gameActionResp = new GameActionResp();
+        gameActionResp.setErrMess(
+                gameRoom.receiveOrder(gameActionReq)
+        );
+        gameActionResp.setCurPhase(
+                gameRoom.getGamePhase()
+        );
+        return gameActionResp;
     }
 }

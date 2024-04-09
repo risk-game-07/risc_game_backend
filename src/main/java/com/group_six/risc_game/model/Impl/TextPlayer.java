@@ -7,11 +7,11 @@ import com.group_six.risc_game.model.Territory;
 import java.util.*;
 
 public class TextPlayer implements Player {
-    private String playerId;
-    List<Territory> territories;
-    Map<String, Territory> territorNameCache;
-    List<ActionLog> attackLogs;
-    List<ActionLog> defendenceLogs;
+    private final String playerId;
+    private final List<Territory> territories;
+    private final Map<String, Territory> territorNameCache;
+    private final List<ActionLog> attackLogs;
+    private final List<ActionLog> defendenceLogs;
 
     public TextPlayer(String str){
         // init player id
@@ -45,6 +45,15 @@ public class TextPlayer implements Player {
         territory.setOwner(this);
         territorNameCache.put(territory.getTerritoryName(), territory);
     }
+
+    @Override
+    public void removeTerritory(Territory territory){
+        territories.remove(territory);
+        territory.setOwner(null);
+        territorNameCache.remove(territory.getTerritoryName());
+
+    }
+
 
     @Override
     public HashSet<Territory> getTerritories() {

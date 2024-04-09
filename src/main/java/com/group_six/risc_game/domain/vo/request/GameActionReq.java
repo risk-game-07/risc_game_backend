@@ -12,9 +12,7 @@ public class GameActionReq {
     String playerId;
     @NotNull
     String type;
-    @NotNull
     String from;
-    @NotNull
     String to;
     int units;
 }

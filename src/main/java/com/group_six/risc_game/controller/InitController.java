@@ -6,7 +6,9 @@ import com.group_six.risc_game.domain.vo.request.WaitAddGameReq;
 import com.group_six.risc_game.domain.vo.response.AddGameResp;
 import com.group_six.risc_game.domain.vo.response.ApiResult;
 import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
+import com.group_six.risc_game.domain.vo.response.WaitOthersResp;
 import com.group_six.risc_game.service.InitGameService;
+import com.group_six.risc_game.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +32,8 @@ import javax.validation.Valid;
 public class InitController {
     @Autowired
     InitGameService initGameService;
-
+    @Autowired
+    RoomService roomService;
     @GetMapping("/addGame")
     @ApiOperation("add to the game")
     public ApiResult<AddGameResp> addGame(@Valid AddGameReq request) {
@@ -39,7 +42,7 @@ public class InitController {
 
     @GetMapping("/waitOther")
     @ApiOperation("wait other players adding to the game")
-    public ApiResult<AssignUnitResp> waitOther(@Valid WaitAddGameReq request) {
-        return ApiResult.success();
+    public ApiResult<WaitOthersResp> waitOther(@Valid WaitAddGameReq request) {
+        return ApiResult.success(roomService.getRoomId(request.getPlayerId()));
     }
 }

@@ -8,4 +8,7 @@ import javax.validation.constraints.NotNull;
 public class GameActionResp {
     @NotNull
     String errMess;
+    @NotNull
+    int curPhase;
+
 }
