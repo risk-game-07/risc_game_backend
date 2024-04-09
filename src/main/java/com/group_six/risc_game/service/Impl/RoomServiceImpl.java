@@ -2,6 +2,7 @@ package com.group_six.risc_game.service.Impl;
 
 import com.group_six.risc_game.domain.vo.response.WaitOthersResp;
 import com.group_six.risc_game.service.RoomService;
+import com.group_six.risc_game.task.CreateRoomTask;
 import com.group_six.risc_game.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,16 @@ public class RoomServiceImpl implements RoomService {
 
     @Autowired
     private RedisUtils redisUtils;
+    @Autowired
+    private CreateRoomTask createRoomTask;
 
     @Override
     public void addToRoomWaitList(String playerId, int roomSize){
         redisUtils.addToListTail(Integer.toString(roomSize), playerId);
+
+        if(redisUtils.getListLength(Integer.toString(roomSize)) >= roomSize){
+            createRoomTask.create();
+        }
     }
 
     @Override

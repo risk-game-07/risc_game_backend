@@ -11,7 +11,7 @@ import java.util.Map;
 public class GameRooms {
     private Map<String,GameRoom> rooms;
 
-    public void GameRooms(){
+    public GameRooms(){
         rooms = new HashMap<>();
     }
     // @return: new room id

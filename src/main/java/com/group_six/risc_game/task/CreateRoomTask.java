@@ -3,7 +3,7 @@ package com.group_six.risc_game.task;
 import com.group_six.risc_game.model.GameRooms;
 import com.group_six.risc_game.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+// import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class CreateRoomTask {
     GameRooms gameRooms;
 
     // each second run this task one time
-    @Scheduled(fixedRate = 1000)
+    // @Scheduled(fixedRate = 1000)
     public void create() {
         // 2-4 players room
         List<String> playersId = new ArrayList<>();

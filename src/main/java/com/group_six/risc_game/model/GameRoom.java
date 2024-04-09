@@ -29,6 +29,7 @@ public class GameRoom {
         // create Players
         this.players = new ArrayList<>();
         this.playernameMap = new HashMap<>();
+        this.territoryNameMap = new HashMap<>();
         // add players
         for(String playerId : playersId) {
             Player player= new TextPlayer(playerId);
