@@ -1,15 +1,14 @@
 package com.group_six.risc_game.model;
 
+import com.group_six.risc_game.domain.vo.domain.PlayerStateDTO;
 import org.springframework.stereotype.Component;
 import cn.hutool.core.util.RandomUtil;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 @Component
 public class GameRooms {
-    private Map<String,GameRoom> rooms;
+    private final Map<String,GameRoom> rooms;
 
     public GameRooms(){
         rooms = new HashMap<>();
@@ -29,4 +28,18 @@ public class GameRooms {
     public GameRoom getGameRoom(String roomId){
         return rooms.get(roomId);
     }
+
+    public PlayerStateDTO getResult(String roomId, String playerId){
+        GameRoom gameRoom = rooms.get(roomId);
+        Player player = gameRoom.getPlayer(playerId);
+        List<Territory> territories = player.getTerritories();
+        List<String> names = new ArrayList<>();
+        for(Territory territory : territories)
+            names.add(territory.getTerritoryName());
+        PlayerStateDTO playerStateDTO = new PlayerStateDTO();
+        playerStateDTO.setTerritoiesName(names);
+        playerStateDTO.setUnits(player.getAvaliableUnits());
+        return playerStateDTO;
+    }
+
 }

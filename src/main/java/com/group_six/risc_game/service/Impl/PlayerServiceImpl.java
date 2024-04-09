@@ -1,10 +1,12 @@
 package com.group_six.risc_game.service.Impl;
 
 import com.group_six.risc_game.domain.vo.domain.GameResultDTO;
+import com.group_six.risc_game.domain.vo.domain.PlayerStateDTO;
 import com.group_six.risc_game.domain.vo.domain.UserActionDTO;
 import com.group_six.risc_game.domain.vo.enums.ActionTypeEnum;
 import com.group_six.risc_game.domain.vo.request.GameActionReq;
 import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
+import com.group_six.risc_game.domain.vo.response.EndPhaseResp;
 import com.group_six.risc_game.domain.vo.response.GameActionResp;
 import com.group_six.risc_game.model.GameRoom;
 import com.group_six.risc_game.model.GameRooms;
@@ -14,8 +16,7 @@ import com.group_six.risc_game.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -45,5 +46,28 @@ public class PlayerServiceImpl implements PlayerService {
                 gameRoom.getGamePhase()
         );
         return gameActionResp;
+    }
+
+
+    //
+    public EndPhaseResp isEndPhase(String roomId, int gamePhase){
+        EndPhaseResp endPhaseResp = new EndPhaseResp();
+        GameRoom gameRoom = gameRooms.getGameRoom(roomId);
+        endPhaseResp.setIsEndOfGame(0);
+        if(gameRoom.canMoveNextPhase(gamePhase)){
+            endPhaseResp.setEnd(true);
+            // TODO: get game results
+            List<Player> players =  gameRoom.getPlayers();
+            List<PlayerStateDTO> list = new ArrayList<>();
+            for(Player player : players) {
+                PlayerStateDTO playerStateDTO = gameRooms.getResult(roomId,
+                        player.getPlayerId());
+                list.add(playerStateDTO);
+            }
+            endPhaseResp.setResult(list);
+        }else{
+            endPhaseResp.setEnd(false);
+        }
+        return endPhaseResp;
     }
 }

@@ -12,6 +12,7 @@ public class TextPlayer implements Player {
     private final Map<String, Territory> territorNameCache;
     private final List<ActionLog> attackLogs;
     private final List<ActionLog> defendenceLogs;
+    int avaliableUnits;
 
     public TextPlayer(String str){
         // init player id
@@ -20,6 +21,7 @@ public class TextPlayer implements Player {
         territorNameCache = new HashMap<>();
         attackLogs = new ArrayList<>();
         defendenceLogs = new ArrayList<>();
+        avaliableUnits = 0;
     }
 
 
@@ -32,7 +34,15 @@ public class TextPlayer implements Player {
     public String getPlayerId(){
         return playerId;
     }
+    @Override
+    public void setAvaliableUnits(int num){
+        this.avaliableUnits = num;
+    }
 
+    @Override
+    public int getAvaliableUnits(){
+        return this.avaliableUnits;
+    }
     @Override
     public int getTerritoryNum(){
         return territories.size();
@@ -56,8 +66,8 @@ public class TextPlayer implements Player {
 
 
     @Override
-    public HashSet<Territory> getTerritories() {
-        return null;
+    public List<Territory> getTerritories() {
+        return territories;
     }
     @Override
     public void storeAttack(ActionLog actionLog) {

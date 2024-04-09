@@ -1,13 +1,8 @@
 package com.group_six.risc_game.controller;
 
 import com.group_six.risc_game.domain.vo.domain.AssignUnitDTO;
-import com.group_six.risc_game.domain.vo.request.AddGameReq;
-import com.group_six.risc_game.domain.vo.request.AssignUnitsReq;
-import com.group_six.risc_game.domain.vo.request.WaitAddGameReq;
-import com.group_six.risc_game.domain.vo.response.AddGameResp;
-import com.group_six.risc_game.domain.vo.response.ApiResult;
-import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
-import com.group_six.risc_game.domain.vo.response.WaitOthersResp;
+import com.group_six.risc_game.domain.vo.request.*;
+import com.group_six.risc_game.domain.vo.response.*;
 import com.group_six.risc_game.service.PlayerService;
 import com.group_six.risc_game.service.RoomService;
 import io.swagger.annotations.Api;
@@ -45,9 +40,13 @@ public class gameController {
 
     @GetMapping("/sendGameAction")
     @ApiOperation("send order to the game")
-    public ApiResult<AssignUnitResp> sendOrder(@Valid AssignUnitsReq request) {
-        return ApiResult.success();
+    public ApiResult<GameActionResp> sendOrder(@Valid GameActionReq request) {
+        return ApiResult.success(playerService.receiveAction(request));
     }
 
-
+    @GetMapping("/endPhase")
+    @ApiOperation("end of one phase")
+    public ApiResult<EndPhaseResp> isEndPhase(@Valid EndPhaseReq endPhaseReq) {
+        return ApiResult.success(playerService.isEndPhase(endPhaseReq.getRoomId(), endPhaseReq.getNumPhase()));
+    }
 }

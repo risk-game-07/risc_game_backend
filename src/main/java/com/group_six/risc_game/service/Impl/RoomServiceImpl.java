@@ -1,6 +1,9 @@
 package com.group_six.risc_game.service.Impl;
 
+import com.group_six.risc_game.domain.vo.domain.PlayerStateDTO;
+import com.group_six.risc_game.domain.vo.request.GetTerritoryReq;
 import com.group_six.risc_game.domain.vo.response.WaitOthersResp;
+import com.group_six.risc_game.model.GameRooms;
 import com.group_six.risc_game.service.RoomService;
 import com.group_six.risc_game.task.CreateRoomTask;
 import com.group_six.risc_game.utils.RedisUtils;
@@ -14,6 +17,8 @@ public class RoomServiceImpl implements RoomService {
     private RedisUtils redisUtils;
     @Autowired
     private CreateRoomTask createRoomTask;
+    @Autowired
+    private GameRooms gameRooms;
 
     @Override
     public void addToRoomWaitList(String playerId, int roomSize){
@@ -42,6 +47,10 @@ public class RoomServiceImpl implements RoomService {
             waitOthersResp.setRoomId((String)status);
         }
         return waitOthersResp;
+    }
+    @Override
+    public PlayerStateDTO getTerritory(GetTerritoryReq getTerritoryReq){
+        return gameRooms.getResult(getTerritoryReq.getRoomId(), getTerritoryReq.getPlayerId());
     }
 
 

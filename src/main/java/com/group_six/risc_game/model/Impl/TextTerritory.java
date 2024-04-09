@@ -98,7 +98,10 @@ public class TextTerritory implements Territory {
             else
                 System.out.println("[ERROR] cannot reach this place");
         }
-
+        if(denfendence.isEmpty()){
+            attackSoldier.add(attacker);
+            soldiers = attackSoldier;
+        }
         return attackSoldier.isEmpty() ? 0 : 1;
     }
 

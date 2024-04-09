@@ -15,7 +15,7 @@ public class AttackChecker extends AbstractChecker{
 
     @Override
     protected boolean checkMyRule(Territory from, Territory to, Player player) {
-        HashSet<Territory> territories = player.getTerritories();
+        List<Territory> territories = player.getTerritories();
         for (Territory t : territories) {
             List<Territory> neighbors = t.getNeighbors();
             for (Territory nei : neighbors) {

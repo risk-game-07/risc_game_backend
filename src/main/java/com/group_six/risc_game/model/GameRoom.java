@@ -57,6 +57,8 @@ public class GameRoom {
                 territoryNameMap.put(territory.getTerritoryName(), territory);
             }
             index += num;
+            // TODO: change the hard code
+            player.setAvaliableUnits(20);
         }
 
     }
@@ -116,7 +118,7 @@ public class GameRoom {
     // @return null :success
     public String receiveOrder(GameActionReq gameActionReq){
         Player curPlayer = playernameMap.get(gameActionReq.getPlayerId());
-        if(gameActionReq.getType() == "attack"){
+        if(gameActionReq.getType().equals( "attack")){
             //TODO: need to check whether having enough units
             String errMes =
                 tryAttack(curPlayer.getPlayerId(),
@@ -138,7 +140,7 @@ public class GameRoom {
                     gameActionReq.getTo(),
                     gameActionReq.getUnits()
             ));
-        }else if(gameActionReq.getType() == "move"){
+        }else if(gameActionReq.getType().equals("move")){
             //TODO: need to check whether having enough units
             String errMes =
                     tryAttack(curPlayer.getPlayerId(),
@@ -159,18 +161,27 @@ public class GameRoom {
                     gameActionReq.getTo(),
                     gameActionReq.getUnits()
             ));
+        }else if(gameActionReq.getType() .equals("end")){
+            endPhase();
         }
         return null;
     }
+
 
     public void endPhase(){
         curEndNum++;
         if(curEndNum == roomSize){
             curEndNum = 0;
             gamePhase++;
+            // combat
+            territoryNameMap.forEach((key, value) ->
+                value.combat());
+            // store combat result
         }
     }
-
+    public List<Player> getPlayers(){
+        return players;
+    }
     public boolean canMoveNextPhase(int curPhase){
         return curPhase > gamePhase;
     }

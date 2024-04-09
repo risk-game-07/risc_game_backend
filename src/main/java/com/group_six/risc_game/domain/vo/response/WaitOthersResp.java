@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,5 +15,4 @@ import lombok.NoArgsConstructor;
 public class WaitOthersResp {
     @ApiModelProperty("represent the room id")
     private String roomId;
-
 }
