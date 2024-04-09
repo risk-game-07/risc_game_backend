@@ -7,6 +7,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,12 +16,16 @@ import com.group_six.risc_game.client.RoomDetails;
 
 public class Client {
     private final HttpClient httpClient;
+    int curPhase;
     private final String baseUrl = "http://localhost:8080";
+
     public Client() {
+
         this.httpClient = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
+        curPhase = -1;
     }
 
     public void joinGame(String playerID, int roomSize) {
@@ -41,11 +46,27 @@ public class Client {
         } else {
             System.out.println("Failed to get the room details or the room is not ready.");
         }
+        isEndPhase(playerID, roomId);
 
     }
 
+    private void isEndPhase(String playerID, String roomId){
+        String isEndPhaselsUrl = baseUrl + "/game/start/endPhase?playerId=" + playerID+"&roomId=" + roomId +"&numPhase=" + curPhase;
+        HttpRequest getDetailRequest = HttpRequest.newBuilder()
+                .uri(URI.create(isEndPhaselsUrl))
+                .GET()
+                .build();
+        try {
+            HttpResponse<String> response = httpClient.send(getDetailRequest, HttpResponse.BodyHandlers.ofString());
+            String responseBody = response.body();
+            System.out.println(responseBody);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private RoomDetails getRoomDeatils(String playerID, String roomId) {
-        String getDetailsUrl = baseUrl + "/game/init/getTerritory?playerId=" + playerID+"&roomId=" + roomId;
+        String getDetailsUrl = baseUrl + "/game/init/getTerritory?playerId=" + playerID+"&roomId=" + roomId + "&";
         HttpRequest getDetailRequest = HttpRequest.newBuilder()
                 .uri(URI.create(getDetailsUrl))
                 .GET()

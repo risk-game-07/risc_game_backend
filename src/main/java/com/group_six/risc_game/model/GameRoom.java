@@ -183,7 +183,7 @@ public class GameRoom {
         return players;
     }
     public boolean canMoveNextPhase(int curPhase){
-        return curPhase > gamePhase;
+        return curPhase < gamePhase;
     }
 
     public int getGamePhase(){

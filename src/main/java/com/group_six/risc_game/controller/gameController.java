@@ -53,5 +53,5 @@ public class gameController {
         return ApiResult.success(playerService.isEndPhase(endPhaseReq.getRoomId(), endPhaseReq.getNumPhase()));
     }
 
-    
+
 }
