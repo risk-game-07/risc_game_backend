@@ -15,9 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -36,9 +34,9 @@ public class InitController {
     InitGameService initGameService;
     @Autowired
     RoomService roomService;
-    @GetMapping("/addGame")
+    @PostMapping("/addGame")
     @ApiOperation("add to the game")
-    public ApiResult<AddGameResp> addGame(@Valid AddGameReq request) {
+    public ApiResult<AddGameResp> addGame(@Valid @RequestBody AddGameReq request) {
         return ApiResult.success(initGameService.addGame(request.getPlayerId(), request.getRoomSize()));
     }
 
@@ -49,8 +47,8 @@ public class InitController {
     }
 
     @GetMapping("/getTerritory")
-    @ApiOperation("wait other players adding to the game")
-    public ApiResult<PlayerStateDTO> waitOther(@Valid GetTerritoryReq request) {
+    @ApiOperation("get the state of random assign")
+    public ApiResult<PlayerStateDTO> getTerritory(@Valid GetTerritoryReq request) {
         return ApiResult.success(roomService.getTerritory(request));
     }
 

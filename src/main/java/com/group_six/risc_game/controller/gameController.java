@@ -23,16 +23,19 @@ public class gameController {
     RoomService roomService;
     @Autowired
     PlayerService playerService;
+    /*
     @GetMapping("/waitOther")
     @ApiOperation("wait other players adding to the game")
     public ApiResult<WaitOthersResp> waitOther(@Valid WaitAddGameReq request) {
         return ApiResult.success(roomService.getRoomId(request.getPlayerId()));
     }
+    */
 
 
-    @GetMapping("/assignUnit")
+
+    @PostMapping("/assignUnit")
     @ApiOperation("assign units of the territory")
-    public ApiResult<AssignUnitResp> assignUnit(@Valid AssignUnitsReq request) {
+    public ApiResult<AssignUnitResp> assignUnit(@Valid @RequestBody AssignUnitsReq request) {
         return ApiResult.success(playerService.assignUnit(request.getAssignPattern(),
                                                           request.getPlayerId(),
                                                           request.getRoomId()));
@@ -49,4 +52,6 @@ public class gameController {
     public ApiResult<EndPhaseResp> isEndPhase(@Valid EndPhaseReq endPhaseReq) {
         return ApiResult.success(playerService.isEndPhase(endPhaseReq.getRoomId(), endPhaseReq.getNumPhase()));
     }
+
+    
 }
