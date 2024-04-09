@@ -9,6 +9,17 @@ public interface Territory {
     //getOwner()
     public String getOwner();
 
+    // set soliders
+    public void setSoliders(int units);
 
     List<Territory> getNeighbors();
+
+    public void addAttacker(Player attacker, List<Soldier> soldiers);
+
+    public void addDenfder(List<Soldier> soldiers);
+
+    public List<Soldier> moveDenfder(int units);
+
+    // compute results
+    public void combat();
 }

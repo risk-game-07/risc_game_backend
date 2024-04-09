@@ -9,4 +9,5 @@ public interface TerritoryFactory {
     // owner -> player id
     // List<Solider>
     public Territory makeTerritory(int index);
+
 }
