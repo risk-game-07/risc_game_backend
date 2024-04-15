@@ -40,15 +40,15 @@ public class InitController {
         return ApiResult.success(initGameService.addGame(request.getPlayerId(), request.getRoomSize()));
     }
 
-    @GetMapping("/waitOther")
+    @PostMapping("/waitOther")
     @ApiOperation("wait other players adding to the game")
-    public ApiResult<WaitOthersResp> waitOther(@Valid WaitAddGameReq request) {
+    public ApiResult<WaitOthersResp> waitOther(@Valid  @RequestBody WaitAddGameReq request) {
         return ApiResult.success(roomService.getRoomId(request.getPlayerId()));
     }
 
-    @GetMapping("/getTerritory")
+    @PostMapping("/getTerritory")
     @ApiOperation("get the state of random assign")
-    public ApiResult<PlayerStateDTO> getTerritory(@Valid GetTerritoryReq request) {
+    public ApiResult<PlayerStateDTO> getTerritory(@Valid @RequestBody GetTerritoryReq request) {
         return ApiResult.success(roomService.getTerritory(request));
     }
 

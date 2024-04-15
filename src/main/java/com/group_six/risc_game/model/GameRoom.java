@@ -58,7 +58,7 @@ public class GameRoom {
             }
             index += num;
             // TODO: change the hard code
-            player.setAvaliableUnits(20);
+            player.setAvaliableUnits(24);
         }
 
     }

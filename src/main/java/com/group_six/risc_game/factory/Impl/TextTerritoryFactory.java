@@ -13,12 +13,9 @@ public class TextTerritoryFactory implements TerritoryFactory {
     @Override
     public Territory makeTerritory(int index) {
         List<Territory> territories = new ArrayList<>();
-        String[] nameList = {
-                "Avalon", "Bristol", "Cypress", "Denver",
-                "Everest", "Florence", "Gibraltar", "Haven",
-                 "Ivy", "Jasper", "Kensington", "Luna"
-        };
-
+        String[] nameList = {"Arcadia","Belmont", "Citadel","Duskwood",
+                "Everglade", "Frostholm","Glimmermere","Havenbrook",
+                "Ironforge","Jade Falls", "Kaldoria", "Lunar Crest"};
         return new TextTerritory(nameList[index]);
 
     }

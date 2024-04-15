@@ -22,4 +22,6 @@ public interface Territory {
 
     // compute results
     public void combat();
+
+    public int getSoliderNum();
 }

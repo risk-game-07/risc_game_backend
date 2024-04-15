@@ -1,6 +1,7 @@
 package com.group_six.risc_game.controller;
 
 import com.group_six.risc_game.domain.vo.domain.AssignUnitDTO;
+import com.group_six.risc_game.domain.vo.domain.WorldMapDTO;
 import com.group_six.risc_game.domain.vo.request.*;
 import com.group_six.risc_game.domain.vo.response.*;
 import com.group_six.risc_game.service.PlayerService;
@@ -23,14 +24,6 @@ public class gameController {
     RoomService roomService;
     @Autowired
     PlayerService playerService;
-    /*
-    @GetMapping("/waitOther")
-    @ApiOperation("wait other players adding to the game")
-    public ApiResult<WaitOthersResp> waitOther(@Valid WaitAddGameReq request) {
-        return ApiResult.success(roomService.getRoomId(request.getPlayerId()));
-    }
-    */
-
 
 
     @PostMapping("/assignUnit")
@@ -41,15 +34,22 @@ public class gameController {
                                                           request.getRoomId()));
     }
 
-    @GetMapping("/sendGameAction")
+    @PostMapping("/getWorldMap")
+    @ApiOperation("assign units of the territory")
+    public ApiResult<WorldMapDTO> getWorldMap(@Valid @RequestBody GetTerritoryReq request) {
+        return ApiResult.success(playerService.getWorldMap(request.getRoomId()));
+    }
+
+
+    @PostMapping("/sendGameAction")
     @ApiOperation("send order to the game")
-    public ApiResult<GameActionResp> sendOrder(@Valid GameActionReq request) {
+    public ApiResult<GameActionResp> sendOrder(@Valid @RequestBody GameActionReq request) {
         return ApiResult.success(playerService.receiveAction(request));
     }
 
-    @GetMapping("/endPhase")
+    @PostMapping("/endPhase")
     @ApiOperation("end of one phase")
-    public ApiResult<EndPhaseResp> isEndPhase(@Valid EndPhaseReq endPhaseReq) {
+    public ApiResult<EndPhaseResp> isEndPhase(@Valid @RequestBody EndPhaseReq endPhaseReq) {
         return ApiResult.success(playerService.isEndPhase(endPhaseReq.getRoomId(), endPhaseReq.getNumPhase()));
     }
 

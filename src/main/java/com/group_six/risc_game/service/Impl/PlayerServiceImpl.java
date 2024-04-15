@@ -3,6 +3,7 @@ package com.group_six.risc_game.service.Impl;
 import com.group_six.risc_game.domain.vo.domain.GameResultDTO;
 import com.group_six.risc_game.domain.vo.domain.PlayerStateDTO;
 import com.group_six.risc_game.domain.vo.domain.UserActionDTO;
+import com.group_six.risc_game.domain.vo.domain.WorldMapDTO;
 import com.group_six.risc_game.domain.vo.enums.ActionTypeEnum;
 import com.group_six.risc_game.domain.vo.request.GameActionReq;
 import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
@@ -48,6 +49,9 @@ public class PlayerServiceImpl implements PlayerService {
         return gameActionResp;
     }
 
+    public WorldMapDTO getWorldMap(String roomId){
+        return gameRooms.getWorldMap(roomId);
+    }
 
     //
     public EndPhaseResp isEndPhase(String roomId, int gamePhase){

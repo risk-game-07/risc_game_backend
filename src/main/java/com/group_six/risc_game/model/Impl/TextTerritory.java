@@ -30,7 +30,10 @@ public class TextTerritory implements Territory {
     // store attacker during the game
     Map<Player,List<Soldier>> attackers;
 
-
+    @Override
+    public int getSoliderNum(){
+        return soldiers.size();
+    }
     public TextTerritory(String name){
         territoryName = name;
         neighbors = new ArrayList<>();

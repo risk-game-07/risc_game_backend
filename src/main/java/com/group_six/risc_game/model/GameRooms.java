@@ -1,6 +1,7 @@
 package com.group_six.risc_game.model;
 
 import com.group_six.risc_game.domain.vo.domain.PlayerStateDTO;
+import com.group_six.risc_game.domain.vo.domain.WorldMapDTO;
 import org.springframework.stereotype.Component;
 import cn.hutool.core.util.RandomUtil;
 
@@ -34,12 +35,33 @@ public class GameRooms {
         Player player = gameRoom.getPlayer(playerId);
         List<Territory> territories = player.getTerritories();
         List<String> names = new ArrayList<>();
-        for(Territory territory : territories)
+        List<Integer> terrUnits = new ArrayList<>();
+        for(Territory territory : territories) {
             names.add(territory.getTerritoryName());
+            terrUnits.add(territory.getSoliderNum());
+        }
         PlayerStateDTO playerStateDTO = new PlayerStateDTO();
         playerStateDTO.setTerritoiesName(names);
+        playerStateDTO.setTerrUnit(terrUnits);
         playerStateDTO.setUnits(player.getAvaliableUnits());
         return playerStateDTO;
+    }
+
+    public WorldMapDTO getWorldMap(String roomId){
+        GameRoom gameRoom = rooms.get(roomId);
+        List<Player> players = gameRoom.getPlayers();
+        List<PlayerStateDTO> playerStateDTOs = new ArrayList<>();
+        List<String> playersName = new ArrayList<>();
+        for(Player player : players) {
+            playerStateDTOs.add(
+                getResult(roomId, player.getPlayerId())
+            );
+            playersName.add(player.getPlayerId());
+        }
+        WorldMapDTO worldMapDTO =  new WorldMapDTO();
+        worldMapDTO.setPlayersName(playersName);
+        worldMapDTO.setPlayersState(playerStateDTOs);
+        return worldMapDTO;
     }
 
 }

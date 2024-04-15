@@ -8,6 +8,7 @@ import java.util.Map;
 @Data
 public class PlayerStateDTO {
     List<String> territoiesName;
+    List<Integer> terrUnit;
     int units;
 
 }
