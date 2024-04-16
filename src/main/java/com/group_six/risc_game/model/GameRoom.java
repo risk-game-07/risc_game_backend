@@ -116,17 +116,18 @@ public class GameRoom {
     }
 
     // @return null :success
-    public String receiveOrder(GameActionReq gameActionReq){
+    public synchronized String receiveOrder(GameActionReq gameActionReq){
         Player curPlayer = playernameMap.get(gameActionReq.getPlayerId());
         if(gameActionReq.getType().equals( "attack")){
             //TODO: need to check whether having enough units
+            /*
             String errMes =
                 tryAttack(curPlayer.getPlayerId(),
                           gameActionReq.getFrom(),
                           gameActionReq.getTo());
             if(errMes != null){
                 return errMes;
-            }
+            }*/
             //TODO: add soliders factory
             List<Soldier> soldiers = territoryNameMap.get(gameActionReq.getFrom()).moveDenfder(
                     gameActionReq.getUnits()
@@ -142,6 +143,7 @@ public class GameRoom {
             ));
         }else if(gameActionReq.getType().equals("move")){
             //TODO: need to check whether having enough units
+            /*
             String errMes =
                     tryAttack(curPlayer.getPlayerId(),
                             gameActionReq.getFrom(),
@@ -149,7 +151,7 @@ public class GameRoom {
             if(errMes != null){
                 return errMes;
             }
-
+            */
             List<Soldier> soldiers = territoryNameMap.get(gameActionReq.getFrom()).moveDenfder(
                     gameActionReq.getUnits()
             );
@@ -178,6 +180,8 @@ public class GameRoom {
                 value.combat());
             // store combat result
         }
+        System.out.println("current end num" + curEndNum);
+        System.out.println(gamePhase);
     }
     public List<Player> getPlayers(){
         return players;

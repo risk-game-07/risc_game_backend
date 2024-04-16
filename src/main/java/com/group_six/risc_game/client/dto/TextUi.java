@@ -138,7 +138,7 @@ public class TextUi {
 
     public static void showNiebor(Map<String, List<String>> map){
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            System.out.println("territory's" + entry.getKey() + " has neibor");
+            System.out.println(entry.getKey() + " has neibor");
             for(String name : entry.getValue()){
                 System.out.print(name + "  ");
             }

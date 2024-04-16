@@ -116,8 +116,10 @@ public class TextTerritory implements Territory {
     @Override
     public List<Soldier> moveDenfder(int units){
         assert (units <= soldiers.size());
-        List<Soldier> subSoldier = soldiers.subList(0, units);
-        soldiers.removeAll(subSoldier);
+        List<Soldier> subSoldier = new ArrayList<>();
+        for(int i = 0; i < 3; i++) {
+            subSoldier.add(soldiers.remove(0));
+        }
         return subSoldier;
     }
 }

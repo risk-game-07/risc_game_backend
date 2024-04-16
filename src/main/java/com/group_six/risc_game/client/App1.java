@@ -25,12 +25,14 @@ public class App1 {
         ClientPlayer clientPlayer = httpClient.getTerritory(userName, roomId);
         Map<String, Integer> map =  TextUi.showInitMapInfo(clientPlayer);
         httpClient.assignUnit(map, userName, roomId);
-        int curPhase = httpClient.sendEndPhase(userName, roomId);
+        int curPhase = 0;
+        httpClient.sendEndPhase(userName, roomId);
         while (!httpClient.moveNextPhase(curPhase, userName, roomId))
             ;
         System.out.println(
                 httpClient.getWorldMap(userName, roomId)
         );
+        curPhase++;
 
         Map<String, List<String>> neibor = TextUi.createNeibour();
         TextUi.showNiebor(neibor);
@@ -48,9 +50,11 @@ public class App1 {
                 GameActionReq gameActionReq = TextUi.chooseOrderDetail();
                 httpClient.sendAttack(userName, roomId, gameActionReq);
             }else{// end
-                curPhase = httpClient.sendEndPhase(userName, roomId);
+                httpClient.sendEndPhase(userName, roomId);
+                System.out.println(curPhase);
                 while (!httpClient.moveNextPhase(curPhase, userName, roomId))
                     ;
+                curPhase++;
             }
             System.out.println(
                     httpClient.getWorldMap(userName, roomId)

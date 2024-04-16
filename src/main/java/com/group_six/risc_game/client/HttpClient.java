@@ -72,7 +72,7 @@ public class HttpClient{
         json.put("roomId", roomId);
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.postForObject(url, json, String.class);
-        System.out.println(result);
+        // System.out.println(result);
         return createWolrdMap(result);
     }
 
@@ -135,6 +135,9 @@ public class HttpClient{
         json.put("playerId", playerId);
         json.put("roomId", roomId);
         json.put("type", "attack");
+        json.put("from", gameActionReq.getFrom());
+        json.put("to", gameActionReq.getTo());
+        json.put("units", gameActionReq.getUnits());
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.postForObject(url, json, String.class);
         return getInt(result, "data", "curPhase");
@@ -162,7 +165,8 @@ public class HttpClient{
         JSONObject json = new JSONObject();
         json.put("playerId", playerId);
         json.put("roomId", roomId);
-        json.put("type", "end");
+        json.put("numPhase", curPhase);
+
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.postForObject(url, json, String.class);
         // System.out.println(result);
