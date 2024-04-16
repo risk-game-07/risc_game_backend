@@ -30,10 +30,61 @@ public class TextTerritory implements Territory {
     // store attacker during the game
     Map<Player,List<Soldier>> attackers;
 
+    public void setNeighbors() {
+        if (territoryName.equals("Arcadia")) {
+            neighbors.add(new TextTerritory("Belmont"));
+            neighbors.add(new TextTerritory("Citadel"));
+        } else if (territoryName.equals("Belmont")) {
+            neighbors.add(new TextTerritory("Arcadia"));
+            neighbors.add(new TextTerritory("Duskwood"));
+            neighbors.add(new TextTerritory("Ironforge"));
+        } else if (territoryName.equals("Ironforge")) {
+            neighbors.add(new TextTerritory("Belmont"));
+            neighbors.add(new TextTerritory("Kaldoria"));
+        } else if (territoryName.equals("Citadel")) {
+            neighbors.add(new TextTerritory("Arcadia"));
+            neighbors.add(new TextTerritory("Duskwood"));
+            neighbors.add(new TextTerritory("Frostholm"));
+        } else if (territoryName.equals("Duskwood")) {
+            neighbors.add(new TextTerritory("Citadel"));
+            neighbors.add(new TextTerritory("Belmont"));
+            neighbors.add(new TextTerritory("Kaldoria"));
+            neighbors.add(new TextTerritory("Lunar Crest"));
+        } else if (territoryName.equals("Kaldoria")) {
+            neighbors.add(new TextTerritory("Ironforge"));
+            neighbors.add(new TextTerritory("Duskwood"));
+            neighbors.add(new TextTerritory("Lunar Crest"));
+        } else if (territoryName.equals("Frostholm")) {
+            neighbors.add(new TextTerritory("Citadel"));
+            neighbors.add(new TextTerritory("Everglade"));
+            neighbors.add(new TextTerritory("Havenbrook"));
+        } else if (territoryName.equals("Everglade")) {
+            neighbors.add(new TextTerritory("Frostholm"));
+            neighbors.add(new TextTerritory("Lunar Crest"));
+        } else if (territoryName.equals("Lunar Crest")) {
+            neighbors.add(new TextTerritory("Kaldoria"));
+            neighbors.add(new TextTerritory("Duskwood"));
+            neighbors.add(new TextTerritory("Everglade"));
+            neighbors.add(new TextTerritory("Jade Falls"));
+            neighbors.add(new TextTerritory("Glimmermere"));
+        } else if (territoryName.equals("Havenbrook")) {
+            neighbors.add(new TextTerritory("Frostholm"));
+            neighbors.add(new TextTerritory("Jade Falls"));
+        } else if (territoryName.equals("Jade Falls")) {
+            neighbors.add(new TextTerritory("Havenbrook"));
+            neighbors.add(new TextTerritory("Lunar Crest"));
+            neighbors.add(new TextTerritory("Glimmermere"));
+        } else if (territoryName.equals("Glimmermere")) {
+            neighbors.add(new TextTerritory("Lunar Crest"));
+            neighbors.add(new TextTerritory("Jade Falls"));
+        }
+    }
+
     @Override
     public int getSoliderNum(){
         return soldiers.size();
     }
+
     public TextTerritory(String name){
         territoryName = name;
         neighbors = new ArrayList<>();

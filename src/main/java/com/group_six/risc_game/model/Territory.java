@@ -6,6 +6,7 @@ public interface Territory {
     public void setOwner(Player owner);
 
     public String getTerritoryName();
+
     //getOwner()
     public String getOwner();
 
@@ -24,4 +25,5 @@ public interface Territory {
     public void combat();
 
     public int getSoliderNum();
+
 }
