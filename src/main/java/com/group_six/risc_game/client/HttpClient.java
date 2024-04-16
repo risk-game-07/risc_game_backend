@@ -159,7 +159,6 @@ public class HttpClient{
     }
 
 
-
     public boolean moveNextPhase(int curPhase, String playerId, String roomId){
         String url = "http://localhost:8080/game/start/endPhase";
         JSONObject json = new JSONObject();
@@ -169,7 +168,7 @@ public class HttpClient{
 
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.postForObject(url, json, String.class);
-        // System.out.println(result);
+
         return getBoolean(result, "data", "end");
     }
 

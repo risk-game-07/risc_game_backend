@@ -146,6 +146,19 @@ public class TextUi {
         }
     }
 
+    public  static String checkInput(String name1, String name2, Map<String, List<String>> map){
+        if(map.containsKey(name1)){
+            if(map.containsKey(name2)){
+                List<String> neibor = map.get(name1);
+                if(neibor.contains(name2))
+                    return null;
+                return "they are not neibor";
+            }
+            return "the target territory does not exist";
+        }
+        return "the source territory does not exist";
+    }
+
     public static String chooseOrder(String userName) {
         System.out.println("You are the " + userName + " player, what would you like to do?");
         System.out.println("(M)ove\n(A)ttack\n(D)one");

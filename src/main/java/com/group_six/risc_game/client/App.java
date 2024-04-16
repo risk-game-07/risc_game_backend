@@ -6,6 +6,7 @@ import com.group_six.risc_game.domain.vo.request.GameActionReq;
 import java.util.List;
 import java.util.Map;
 
+import static com.group_six.risc_game.client.dto.TextUi.checkInput;
 import static com.group_six.risc_game.client.dto.TextUi.createNeibour;
 
 public class App {
@@ -43,13 +44,24 @@ public class App {
         while (true){
             String choose = TextUi.chooseOrder(userName);
             // move
+            String errMes = "";
             if(choose.equals("M")){
-                GameActionReq gameActionReq = TextUi.chooseOrderDetail();
+                GameActionReq gameActionReq = null;
+                while (errMes != null){
+                    gameActionReq = TextUi.chooseOrderDetail();
+                    errMes = checkInput(gameActionReq.getFrom(), gameActionReq.getTo(), neibor);
+                    if(errMes != null) System.out.println(errMes);
+                }
                 httpClient.sendMove(userName, roomId, gameActionReq);
             }
             // attack
             else if (choose.equals("A")){
-                GameActionReq gameActionReq = TextUi.chooseOrderDetail();
+                GameActionReq gameActionReq = null;
+                while (errMes != null){
+                    gameActionReq = TextUi.chooseOrderDetail();
+                    errMes = checkInput(gameActionReq.getFrom(), gameActionReq.getTo(), neibor);
+                    if(errMes != null) System.out.println(errMes);
+                }
                 httpClient.sendAttack(userName, roomId, gameActionReq);
             }else{// end
                 httpClient.sendEndPhase(userName, roomId);
