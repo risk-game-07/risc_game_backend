@@ -10,6 +10,8 @@ public interface Territory {
     //getOwner()
     public String getOwner();
 
+    public void setNeighbors(GameRoom gameRoom);
+
     // set soliders
     public void setSoliders(int units);
 

@@ -56,6 +56,11 @@ public class GameRoom {
                 player.assignTerritory(territory);
                 territoryNameMap.put(territory.getTerritoryName(), territory);
             }
+            // set neibor
+            for(Territory territory : territoryNameMap.values()){
+                territory.setNeighbors(this);
+            }
+
             index += num;
             // TODO: change the hard code
             player.setAvaliableUnits(24);
@@ -77,7 +82,7 @@ public class GameRoom {
         return new HashMap<>();
     }
 
-    String tryAttack(String playerId, String from, String to){
+    String tryAttack(String playerId, String from, String to, int units){
         //TODO: change it to reposibiliy link list
         // choose player
         Player curPlayer = playernameMap.get(playerId);
@@ -88,15 +93,28 @@ public class GameRoom {
         if(!curPlayer.isMyTerritory(from)){
             return from + " do not blong to " + playerId;
         }
+        if(curPlayer.isMyTerritory(to)){
+            return "cannot attack your own place";
+        }
+        // check whether have some units
+        if(territoryNameMap.get(from).getSoliderNum() < units){
+            return "do not have enough units";
+        }
+
         // check attack rule
+        List<Territory> neibor = territoryNameMap.get(from).getNeighbors();
+        if(!neibor.contains(territoryNameMap.get(to))){
+            return "they are not neibour";
+        }
+        /*
         AbstractChecker attackChecker = new AttackChecker(null);
         if(!attackChecker.checkAction( territoryNameMap.get(from), territoryNameMap.get(to),curPlayer)){
             return "you cannot attack from " + from + " to " + to;
-        }
+        }*/
         return null;
     }
 
-    String tryMove(String playerId, String from, String to){
+    String tryMove(String playerId, String from, String to, int units){
         //TODO: change it to reposibiliy link list
         // choose player
         Player curPlayer = playernameMap.get(playerId);
@@ -107,11 +125,26 @@ public class GameRoom {
         if(!curPlayer.isMyTerritory(from)){
             return from + " do not blong to " + playerId;
         }
+
+        if(!curPlayer.isMyTerritory(to)){
+            return to + " do not blong to " + playerId;
+        }
+
+        // check whether have enough units
+        if(territoryNameMap.get(from).getSoliderNum() < units){
+            return "do not have enough units";
+        }
+
         // check movement
+        List<Territory> neibor = territoryNameMap.get(from).getNeighbors();
+        if(!neibor.contains(territoryNameMap.get(to))){
+            return "they are not neibour";
+        }
+        /*
         AbstractChecker moveChecker = new MovementChecker(null);
         if(!moveChecker.checkAction( territoryNameMap.get(from), territoryNameMap.get(to),curPlayer)){
             return "you cannot move from " + from + " to " + to;
-        }
+        }*/
         return null;
     }
 
@@ -120,14 +153,17 @@ public class GameRoom {
         Player curPlayer = playernameMap.get(gameActionReq.getPlayerId());
         if(gameActionReq.getType().equals( "attack")){
             //TODO: need to check whether having enough units
-            /*
+
             String errMes =
                 tryAttack(curPlayer.getPlayerId(),
                           gameActionReq.getFrom(),
-                          gameActionReq.getTo());
+                          gameActionReq.getTo(),
+                        gameActionReq.getUnits());
+
+
             if(errMes != null){
                 return errMes;
-            }*/
+            }
             //TODO: add soliders factory
             List<Soldier> soldiers = territoryNameMap.get(gameActionReq.getFrom()).moveDenfder(
                     gameActionReq.getUnits()
@@ -143,15 +179,15 @@ public class GameRoom {
             ));
         }else if(gameActionReq.getType().equals("move")){
             //TODO: need to check whether having enough units
-            /*
             String errMes =
-                    tryAttack(curPlayer.getPlayerId(),
+                    tryMove(curPlayer.getPlayerId(),
                             gameActionReq.getFrom(),
-                            gameActionReq.getTo());
+                            gameActionReq.getTo(),
+                            gameActionReq.getUnits());
             if(errMes != null){
                 return errMes;
             }
-            */
+
             List<Soldier> soldiers = territoryNameMap.get(gameActionReq.getFrom()).moveDenfder(
                     gameActionReq.getUnits()
             );

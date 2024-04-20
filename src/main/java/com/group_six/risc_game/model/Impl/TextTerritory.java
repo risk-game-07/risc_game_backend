@@ -1,6 +1,7 @@
 package com.group_six.risc_game.model.Impl;
 
 
+import com.group_six.risc_game.model.GameRoom;
 import com.group_six.risc_game.model.Player;
 import com.group_six.risc_game.model.Soldier;
 import com.group_six.risc_game.model.Territory;
@@ -30,53 +31,54 @@ public class TextTerritory implements Territory {
     // store attacker during the game
     Map<Player,List<Soldier>> attackers;
 
-    public void setNeighbors() {
+    @Override
+    public void setNeighbors(GameRoom gameRoom) {
         if (territoryName.equals("Arcadia")) {
-            neighbors.add(new TextTerritory("Belmont"));
-            neighbors.add(new TextTerritory("Citadel"));
+            neighbors.add(gameRoom.getTerritory("Belmont"));
+            neighbors.add(gameRoom.getTerritory("Citadel"));
         } else if (territoryName.equals("Belmont")) {
-            neighbors.add(new TextTerritory("Arcadia"));
-            neighbors.add(new TextTerritory("Duskwood"));
-            neighbors.add(new TextTerritory("Ironforge"));
+            neighbors.add(gameRoom.getTerritory("Arcadia"));
+            neighbors.add(gameRoom.getTerritory("Duskwood"));
+            neighbors.add(gameRoom.getTerritory("Ironforge"));
         } else if (territoryName.equals("Ironforge")) {
-            neighbors.add(new TextTerritory("Belmont"));
-            neighbors.add(new TextTerritory("Kaldoria"));
+            neighbors.add(gameRoom.getTerritory("Belmont"));
+            neighbors.add(gameRoom.getTerritory("Kaldoria"));
         } else if (territoryName.equals("Citadel")) {
-            neighbors.add(new TextTerritory("Arcadia"));
-            neighbors.add(new TextTerritory("Duskwood"));
-            neighbors.add(new TextTerritory("Frostholm"));
+            neighbors.add(gameRoom.getTerritory("Arcadia"));
+            neighbors.add(gameRoom.getTerritory("Duskwood"));
+            neighbors.add(gameRoom.getTerritory("Frostholm"));
         } else if (territoryName.equals("Duskwood")) {
-            neighbors.add(new TextTerritory("Citadel"));
-            neighbors.add(new TextTerritory("Belmont"));
-            neighbors.add(new TextTerritory("Kaldoria"));
-            neighbors.add(new TextTerritory("Lunar Crest"));
+            neighbors.add(gameRoom.getTerritory("Citadel"));
+            neighbors.add(gameRoom.getTerritory("Belmont"));
+            neighbors.add(gameRoom.getTerritory("Kaldoria"));
+            neighbors.add(gameRoom.getTerritory("Lunar Crest"));
         } else if (territoryName.equals("Kaldoria")) {
-            neighbors.add(new TextTerritory("Ironforge"));
-            neighbors.add(new TextTerritory("Duskwood"));
-            neighbors.add(new TextTerritory("Lunar Crest"));
+            neighbors.add(gameRoom.getTerritory("Ironforge"));
+            neighbors.add(gameRoom.getTerritory("Duskwood"));
+            neighbors.add(gameRoom.getTerritory("Lunar Crest"));
         } else if (territoryName.equals("Frostholm")) {
-            neighbors.add(new TextTerritory("Citadel"));
-            neighbors.add(new TextTerritory("Everglade"));
-            neighbors.add(new TextTerritory("Havenbrook"));
+            neighbors.add(gameRoom.getTerritory("Citadel"));
+            neighbors.add(gameRoom.getTerritory("Everglade"));
+            neighbors.add(gameRoom.getTerritory("Havenbrook"));
         } else if (territoryName.equals("Everglade")) {
-            neighbors.add(new TextTerritory("Frostholm"));
-            neighbors.add(new TextTerritory("Lunar Crest"));
+            neighbors.add(gameRoom.getTerritory("Frostholm"));
+            neighbors.add(gameRoom.getTerritory("Lunar Crest"));
         } else if (territoryName.equals("Lunar Crest")) {
-            neighbors.add(new TextTerritory("Kaldoria"));
-            neighbors.add(new TextTerritory("Duskwood"));
-            neighbors.add(new TextTerritory("Everglade"));
-            neighbors.add(new TextTerritory("Jade Falls"));
-            neighbors.add(new TextTerritory("Glimmermere"));
+            neighbors.add(gameRoom.getTerritory("Kaldoria"));
+            neighbors.add(gameRoom.getTerritory("Duskwood"));
+            neighbors.add(gameRoom.getTerritory("Everglade"));
+            neighbors.add(gameRoom.getTerritory("Jade Falls"));
+            neighbors.add(gameRoom.getTerritory("Glimmermere"));
         } else if (territoryName.equals("Havenbrook")) {
-            neighbors.add(new TextTerritory("Frostholm"));
-            neighbors.add(new TextTerritory("Jade Falls"));
+            neighbors.add(gameRoom.getTerritory("Frostholm"));
+            neighbors.add(gameRoom.getTerritory("Jade Falls"));
         } else if (territoryName.equals("Jade Falls")) {
-            neighbors.add(new TextTerritory("Havenbrook"));
-            neighbors.add(new TextTerritory("Lunar Crest"));
-            neighbors.add(new TextTerritory("Glimmermere"));
+            neighbors.add(gameRoom.getTerritory("Havenbrook"));
+            neighbors.add(gameRoom.getTerritory("Lunar Crest"));
+            neighbors.add(gameRoom.getTerritory("Glimmermere"));
         } else if (territoryName.equals("Glimmermere")) {
-            neighbors.add(new TextTerritory("Lunar Crest"));
-            neighbors.add(new TextTerritory("Jade Falls"));
+            neighbors.add(gameRoom.getTerritory("Lunar Crest"));
+            neighbors.add(gameRoom.getTerritory("Jade Falls"));
         }
     }
 
