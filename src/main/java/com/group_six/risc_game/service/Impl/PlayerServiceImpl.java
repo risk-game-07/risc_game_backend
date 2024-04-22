@@ -7,11 +7,13 @@ import com.group_six.risc_game.domain.vo.domain.WorldMapDTO;
 import com.group_six.risc_game.domain.vo.enums.ActionTypeEnum;
 import com.group_six.risc_game.domain.vo.request.GameActionReq;
 import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
+import com.group_six.risc_game.domain.vo.response.EachTerrInfoResp;
 import com.group_six.risc_game.domain.vo.response.EndPhaseResp;
 import com.group_six.risc_game.domain.vo.response.GameActionResp;
 import com.group_six.risc_game.model.GameRoom;
 import com.group_six.risc_game.model.GameRooms;
 import com.group_six.risc_game.model.Player;
+import com.group_six.risc_game.model.Territory;
 import com.group_six.risc_game.service.PlayerService;
 import com.group_six.risc_game.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,18 @@ public class PlayerServiceImpl implements PlayerService {
                                 gameRoom.getTerritory(key).setSoliders(value));
         return new AssignUnitResp(playerId);
     }
-
+    @Override
+    public EachTerrInfoResp getEachTerritoryInfo(String roomId, String playerId, String terrName){
+        GameRoom gameRoom= gameRooms.getGameRoom(roomId);
+        Territory territory = gameRoom.getTerritory(terrName);
+        EachTerrInfoResp eachTerrInfoResp = new EachTerrInfoResp();
+        eachTerrInfoResp.setFood(territory.getFood());
+        eachTerrInfoResp.setTechnology(territory.getTechnology());
+        eachTerrInfoResp.setOwner(territory.getOwner());
+        eachTerrInfoResp.setLevel(territory.getSolidierLevel());
+        eachTerrInfoResp.setMaxTechnologyLevel(territory.getMaxTechnology());
+        return eachTerrInfoResp;
+    }
     @Override
     public GameActionResp receiveAction(GameActionReq gameActionReq){
         GameRoom gameRoom = gameRooms.getGameRoom(gameActionReq.getRoomId());

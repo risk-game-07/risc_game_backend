@@ -74,7 +74,6 @@ public class RoomServiceTest{
         getTerritoryReq.setRoomId(resp.getRoomId());
         getTerritoryReq.setPlayerId("test_1");
         @NotNull
-        String roomId;
         PlayerStateDTO playerStateDTO =  roomService.getTerritory(getTerritoryReq);
         System.out.println(playerStateDTO.getTerrFood());
         System.out.println(playerStateDTO.getTerrTechnology());

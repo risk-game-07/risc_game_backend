@@ -10,6 +10,6 @@ public class EachTerrInfo {
     @NotNull
     String playerId;
     @NotNull
-    int numPhase;
+    String name;
 }
 

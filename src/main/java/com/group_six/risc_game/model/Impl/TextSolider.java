@@ -7,8 +7,10 @@ import static cn.hutool.core.util.RandomUtil.randomInt;
 
 public class TextSolider implements Soldier {
     private int hp;
+    private int level;
     public TextSolider(){
         hp = 1;
+        level = 1;
     }
 
     @Override
@@ -32,5 +34,13 @@ public class TextSolider implements Soldier {
     @Override
     public boolean isDie() {
         return hp == 0;
+    }
+    @Override
+    public void addLevel(){
+        level++;
+    }
+    @Override
+    public int getLevel(){
+        return level;
     }
 }

@@ -5,5 +5,6 @@ public interface Soldier {
     public void decreaseOneHp();
     public boolean isDie();
     public int getFightValue();
-
+    public void addLevel();
+    public int getLevel();
 }

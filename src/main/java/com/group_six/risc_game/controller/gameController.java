@@ -55,8 +55,10 @@ public class gameController {
 
     @PostMapping("/getEachTerritoryInfo")
     @ApiOperation("end of one phase")
-    public ApiResult<EndPhaseResp> getEachTerritory(@Valid @RequestBody EndPhaseReq endPhaseReq) {
-        return ApiResult.success(playerService.isEndPhase(endPhaseReq.getRoomId(), endPhaseReq.getNumPhase()));
+    public ApiResult<EachTerrInfoResp> getEachTerritory(@Valid @RequestBody EachTerrInfo eachTerrInfo) {
+        return ApiResult.success(playerService.getEachTerritoryInfo(eachTerrInfo.getRoomId(),
+                                eachTerrInfo.getPlayerId(),
+                                eachTerrInfo.getName()));
     }
 
 }

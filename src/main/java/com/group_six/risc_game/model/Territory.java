@@ -35,4 +35,7 @@ public interface Territory {
     public int getTechnology();
     public int getFood();
     public void setFood(int v);
+
+
+    public List<Integer> getSolidierLevel();
 }

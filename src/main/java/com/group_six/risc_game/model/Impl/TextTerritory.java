@@ -7,6 +7,8 @@ import com.group_six.risc_game.model.Soldier;
 import com.group_six.risc_game.model.Territory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
@@ -29,29 +31,21 @@ public class TextTerritory implements Territory {
     Map<Player,List<Soldier>> defenders;
     // store attacker during the game
     Map<Player,List<Soldier>> attackers;
-    int maxTechnology = 0;
+    @Getter
+    @Setter
+    int maxTechnology = 1;
+    @Setter
+    @Getter
     int food = 0;
+    @Getter
+    @Setter
     int technology = 0;
 
-    public void setMaxTechnology(int v){
-        maxTechnology = v;
-    }
-    public int getMaxTechnology(){
-        return maxTechnology;
-    }
-
-    public void setTechnology(int v){
-        technology = v;
-    }
-    public int getTechnology(){
-        return technology;
-    }
-
-    public int getFood(){
-        return food;
-    }
-    public void setFood(int v){
-        food = v;
+    public List<Integer> getSolidierLevel(){
+        List<Integer> levels = new ArrayList<>();
+        for(Soldier soldier : soldiers)
+            levels.add(soldier.getLevel());
+        return levels;
     }
 
     @Override
@@ -109,6 +103,7 @@ public class TextTerritory implements Territory {
     public int getSoliderNum(){
         return soldiers.size();
     }
+
 
     public TextTerritory(String name){
         territoryName = name;
