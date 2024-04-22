@@ -28,6 +28,7 @@ public class PlayerServiceTest{
         EachTerrInfoResp eachTerrInfoResp = playerService.getEachTerritoryInfo(resp.getRoomId(),"test_1","Arcadia");
         System.out.println(eachTerrInfoResp.getOwner());
         System.out.println(eachTerrInfoResp.getFood());
+        System.out.println(eachTerrInfoResp.getTechnology());
         System.out.println(eachTerrInfoResp.getLevel());
         System.out.println(eachTerrInfoResp.getMaxTechnologyLevel());
     }

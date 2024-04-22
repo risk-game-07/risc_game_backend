@@ -1,8 +1,6 @@
 package com.group_six.risc_game;
 
-import com.group_six.risc_game.model.GameRoom;
 import com.group_six.risc_game.model.GameRooms;
-import com.group_six.risc_game.model.Impl.TextPlayer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
