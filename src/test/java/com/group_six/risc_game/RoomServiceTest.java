@@ -1,6 +1,10 @@
 package com.group_six.risc_game;
 
+import com.group_six.risc_game.domain.vo.domain.PlayerStateDTO;
+import com.group_six.risc_game.domain.vo.request.GetTerritoryReq;
+import com.group_six.risc_game.domain.vo.request.WaitAddGameReq;
 import com.group_six.risc_game.domain.vo.response.AddGameResp;
+import com.group_six.risc_game.domain.vo.response.WaitOthersResp;
 import com.group_six.risc_game.service.InitGameService;
 import com.group_six.risc_game.service.RoomService;
 import com.group_six.risc_game.utils.RedisUtils;
@@ -10,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +30,7 @@ public class RoomServiceTest{
     RoomService roomService;
     @Autowired
     RedisUtils redisUtils;
+
     @Test
     public void testAddRoomWaitList(){
         // pass test
@@ -57,6 +63,23 @@ public class RoomServiceTest{
         roomService.addToRoomWaitList("test_2", 2);
         System.out.println(roomService.getRoomId("test_1"));
         assertEquals(0, redisUtils.getListLength("2"));
+    }
+
+    @Test
+    void testGetTerritory() throws InterruptedException{
+        roomService.addToRoomWaitList("test_1", 2);
+        roomService.addToRoomWaitList("test_2", 2);
+        WaitOthersResp resp = roomService.getRoomId("test_1");
+        GetTerritoryReq getTerritoryReq = new GetTerritoryReq();
+        getTerritoryReq.setRoomId(resp.getRoomId());
+        getTerritoryReq.setPlayerId("test_1");
+        @NotNull
+        String roomId;
+        PlayerStateDTO playerStateDTO =  roomService.getTerritory(getTerritoryReq);
+        System.out.println(playerStateDTO.getTerrFood());
+        System.out.println(playerStateDTO.getTerrTechnology());
+        System.out.println(playerStateDTO.getUnits());
+        System.out.println(playerStateDTO.getTerritoiesName());
     }
 }
 

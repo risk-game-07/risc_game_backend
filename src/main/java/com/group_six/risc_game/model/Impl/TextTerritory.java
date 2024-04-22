@@ -21,15 +21,38 @@ public class TextTerritory implements Territory {
     Player newOwner;
     // all soldier
     List<Soldier> soldiers;
-
     // terriotoryName
     String territoryName;
-
     // neighbors
     List<Territory> neighbors;
-
+    // store defenders in the game
+    Map<Player,List<Soldier>> defenders;
     // store attacker during the game
     Map<Player,List<Soldier>> attackers;
+    int maxTechnology = 0;
+    int food = 0;
+    int technology = 0;
+
+    public void setMaxTechnology(int v){
+        maxTechnology = v;
+    }
+    public int getMaxTechnology(){
+        return maxTechnology;
+    }
+
+    public void setTechnology(int v){
+        technology = v;
+    }
+    public int getTechnology(){
+        return technology;
+    }
+
+    public int getFood(){
+        return food;
+    }
+    public void setFood(int v){
+        food = v;
+    }
 
     @Override
     public void setNeighbors(GameRoom gameRoom) {

@@ -52,6 +52,7 @@ public class GameRoom {
         int index = 0;
         for(Player player : players){
             for(int i = 0; i < num; i++) {
+                // create territory
                 Territory territory = territoryFactory.makeTerritory(index + i);
                 player.assignTerritory(territory);
                 territoryNameMap.put(territory.getTerritoryName(), territory);

@@ -35,14 +35,19 @@ public class GameRooms {
         Player player = gameRoom.getPlayer(playerId);
         List<Territory> territories = player.getTerritories();
         List<String> names = new ArrayList<>();
-        List<Integer> terrUnits = new ArrayList<>();
+
+        List<Integer> terrsFood = new ArrayList<>();
+        List<Integer> terrsTech = new ArrayList<>();
         for(Territory territory : territories) {
             names.add(territory.getTerritoryName());
-            terrUnits.add(territory.getSoliderNum());
+            terrsFood.add(territory.getFood());
+            terrsTech.add(territory.getTechnology());
         }
+        // set state
         PlayerStateDTO playerStateDTO = new PlayerStateDTO();
         playerStateDTO.setTerritoiesName(names);
-        playerStateDTO.setTerrUnit(terrUnits);
+        playerStateDTO.setTerrFood(terrsFood);
+        playerStateDTO.setTerrTechnology(terrsTech);
         playerStateDTO.setUnits(player.getAvaliableUnits());
         return playerStateDTO;
     }

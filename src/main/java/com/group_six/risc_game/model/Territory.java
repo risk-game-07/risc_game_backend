@@ -28,4 +28,11 @@ public interface Territory {
 
     public int getSoliderNum();
 
+    // for technology
+    public void setMaxTechnology(int v);
+    public int getMaxTechnology();
+    public void setTechnology(int v);
+    public int getTechnology();
+    public int getFood();
+    public void setFood(int v);
 }

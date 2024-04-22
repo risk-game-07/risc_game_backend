@@ -16,8 +16,10 @@ public class TextTerritoryFactory implements TerritoryFactory {
         String[] nameList = {"Arcadia","Belmont", "Citadel","Duskwood",
                 "Everglade", "Frostholm","Glimmermere","Havenbrook",
                 "Ironforge","Jade Falls", "Kaldoria", "Lunar Crest"};
-        return new TextTerritory(nameList[index]);
-
+        Territory territory =  new TextTerritory(nameList[index]);
+        territory.setTechnology(100);
+        territory.setFood(100);
+        return territory;
     }
 
 }
