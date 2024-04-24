@@ -66,8 +66,8 @@ public class PlayerServiceImpl implements PlayerService {
         return gameRooms.getWorldMap(roomId);
     }
 
-    //
-    public EndPhaseResp isEndPhase(String roomId, int gamePhase){
+    //override
+    public EndPhaseResp isEndPhase(String playerId, String roomId, int gamePhase){
         EndPhaseResp endPhaseResp = new EndPhaseResp();
         GameRoom gameRoom = gameRooms.getGameRoom(roomId);
         endPhaseResp.setIsEndOfGame(0);
@@ -82,6 +82,18 @@ public class PlayerServiceImpl implements PlayerService {
                 list.add(playerStateDTO);
             }
             endPhaseResp.setResult(list);
+            for(Player player : players){
+                if(player.getPlayerId().equals(playerId)){
+                    if(player.getTerritories().size() == 24){
+                        endPhaseResp.setIsEndOfGame(1);
+                    }else if(player.getTerritories().isEmpty()){
+                        endPhaseResp.setIsEndOfGame(2);
+                    }else{
+                        endPhaseResp.setIsEndOfGame(0);
+                    }
+                }
+            }
+            // endPhaseResp.setIsEndOfGame();
         }else{
             endPhaseResp.setEnd(false);
         }

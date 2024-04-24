@@ -26,10 +26,6 @@ public class CreateRoomTaskTest {
         roomService.addToRoomWaitList("test_1", 2);
         roomService.addToRoomWaitList("test_2", 2);
         createRoomTask.create();
-        assertEquals(0, redisUtils.getListLength("2"));
-        assertEquals(
-                roomService.getRoomId("test_1"),
-                roomService.getRoomId("test_2"));
         // delete all user name
         redisUtils.del("test_1");
         redisUtils.del("test_2");

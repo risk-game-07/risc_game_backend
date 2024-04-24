@@ -4,6 +4,7 @@ import com.group_six.risc_game.domain.vo.request.GameActionReq;
 import com.group_six.risc_game.factory.Impl.TextTerritoryFactory;
 import com.group_six.risc_game.factory.TerritoryFactory;
 import com.group_six.risc_game.model.Impl.TextPlayer;
+import com.group_six.risc_game.model.Impl.TextSolider;
 import com.group_six.risc_game.utils.AbstractChecker;
 import com.group_six.risc_game.utils.AttackChecker;
 import com.group_six.risc_game.utils.MovementChecker;
@@ -154,7 +155,7 @@ public class GameRoom {
         Player curPlayer = playernameMap.get(gameActionReq.getPlayerId());
         if(gameActionReq.getType().equals( "attack")){
             //TODO: need to check whether having enough units
-
+            /*
             String errMes =
                 tryAttack(curPlayer.getPlayerId(),
                           gameActionReq.getFrom(),
@@ -164,11 +165,14 @@ public class GameRoom {
 
             if(errMes != null){
                 return errMes;
-            }
+            }*/
             //TODO: add soliders factory
+            int val =territoryNameMap.get(gameActionReq.getFrom()).getFood() - gameActionReq.getConsume();
+            territoryNameMap.get(gameActionReq.getFrom()).setFood(val);
             List<Soldier> soldiers = territoryNameMap.get(gameActionReq.getFrom()).moveDenfder(
                     gameActionReq.getUnits()
             );
+
             territoryNameMap.get(gameActionReq.getTo()).addAttacker(
                      playernameMap.get(gameActionReq.getPlayerId()),
                     soldiers
@@ -180,6 +184,7 @@ public class GameRoom {
             ));
         }else if(gameActionReq.getType().equals("move")){
             //TODO: need to check whether having enough units
+            /*
             String errMes =
                     tryMove(curPlayer.getPlayerId(),
                             gameActionReq.getFrom(),
@@ -188,7 +193,9 @@ public class GameRoom {
             if(errMes != null){
                 return errMes;
             }
-
+            */
+            int val =territoryNameMap.get(gameActionReq.getFrom()).getFood() - gameActionReq.getConsume();
+            territoryNameMap.get(gameActionReq.getFrom()).setFood(val);
             List<Soldier> soldiers = territoryNameMap.get(gameActionReq.getFrom()).moveDenfder(
                     gameActionReq.getUnits()
             );
@@ -202,7 +209,33 @@ public class GameRoom {
             ));
         }else if(gameActionReq.getType() .equals("end")){
             endPhase();
+        }else if(gameActionReq.getType().equals("upgrade")){
+            Territory territory = territoryNameMap.get(gameActionReq.getFrom());
+            String[] arr = gameActionReq.getTo().split(",");
+            int[] nums = new int[3];
+            int i = 0;
+            // 遍历数组并对每个字符串进行判断和转换
+            for (String value : arr) {
+                // 使用正则表达式检查字符串是否表示一个数字
+                if (value.matches("-?\\d+")) {
+                    // 如果是数字，则将其转换为整数
+                    nums[i] = Integer.parseInt(value);
+                }
+                i++;
+            }
+            territory.upgradeLevel(nums[0], nums[1], nums[2]);
+            // consume tech
+            int val =territoryNameMap.get(gameActionReq.getFrom()).getTechnology() - gameActionReq.getConsume();
+            territoryNameMap.get(gameActionReq.getFrom()).setTechnology(val);
+        }else if(gameActionReq.getType().equals("research")){
+            Territory territory = territoryNameMap.get(gameActionReq.getFrom());
+            int tempTech = territory.getMaxTechnology();
+            territory.setMaxTechnology(tempTech + 1);
+            // cosume tech
+            int val =territoryNameMap.get(gameActionReq.getFrom()).getTechnology() - gameActionReq.getConsume();
+            territoryNameMap.get(gameActionReq.getFrom()).setTechnology(val);
         }
+
         return null;
     }
 
@@ -215,7 +248,17 @@ public class GameRoom {
             // combat
             territoryNameMap.forEach((key, value) ->
                 value.combat());
-            // store combat result
+            if(gamePhase != 1){
+                // add one basic unit
+                territoryNameMap.forEach((key, value) ->
+                        value.addOneDenfder(new TextSolider()));
+                // add one basic food
+                territoryNameMap.forEach((key, value) ->
+                                value.setTechnology(value.getTechnology() + 5));
+                // add one
+                territoryNameMap.forEach((key, value) ->
+                        value.setFood(value.getFood() + 5));
+            }
         }
         System.out.println("current end num" + curEndNum);
         System.out.println(gamePhase);

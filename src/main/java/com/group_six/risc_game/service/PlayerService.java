@@ -13,7 +13,7 @@ import java.util.Map;
 public  interface PlayerService {
     public AssignUnitResp assignUnit(Map<String, Integer> assignPattern, String playerId, String roomId);
     public GameActionResp receiveAction(GameActionReq gameActionReq);
-    public EndPhaseResp isEndPhase(String roomId, int gamePhase);
+    public EndPhaseResp isEndPhase(String playerId,String roomId, int gamePhase);
     public WorldMapDTO getWorldMap(String roomId);
     public EachTerrInfoResp getEachTerritoryInfo(String roomId, String playerId, String terrName);
 }

@@ -41,10 +41,13 @@ public class TextTerritory implements Territory {
     @Setter
     int technology = 0;
 
+
     public List<Integer> getSolidierLevel(){
         List<Integer> levels = new ArrayList<>();
-        for(Soldier soldier : soldiers)
-            levels.add(soldier.getLevel());
+        for(Soldier soldier : soldiers) {
+            if (soldier != null)
+                levels.add(soldier.getLevel());
+        }
         return levels;
     }
 
@@ -173,7 +176,8 @@ public class TextTerritory implements Territory {
                 System.out.println("[ERROR] cannot reach this place");
         }
         if(denfendence.isEmpty()){
-            attackSoldier.add(attacker);
+            if (attacker != null)
+                attackSoldier.add(attacker);
             soldiers = attackSoldier;
         }
         return attackSoldier.isEmpty() ? 0 : 1;
@@ -182,6 +186,10 @@ public class TextTerritory implements Territory {
     @Override
     public void addDenfder(List<Soldier> newSoldiers){
         soldiers.addAll(newSoldiers);
+    }
+    @Override
+    public void addOneDenfder(Soldier soldier){
+        soldiers.add(soldier);
     }
 
     @Override
@@ -192,5 +200,17 @@ public class TextTerritory implements Territory {
             subSoldier.add(soldiers.remove(0));
         }
         return subSoldier;
+    }
+
+    @Override
+    public void upgradeLevel(int original, int target, int num){
+        int i = 0;
+        while (num > 0){
+            if(soldiers.get(i).getLevel() == original){
+                soldiers.get(i).setLevel(target);
+                num--;
+            }
+            i++;
+        }
     }
 }

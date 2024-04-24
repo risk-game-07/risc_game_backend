@@ -18,11 +18,9 @@ public interface Territory {
     List<Territory> getNeighbors();
 
     public void addAttacker(Player attacker, List<Soldier> soldiers);
-
     public void addDenfder(List<Soldier> soldiers);
-
+    public void addOneDenfder(Soldier soldier);
     public List<Soldier> moveDenfder(int units);
-
     // compute results
     public void combat();
 
@@ -35,7 +33,6 @@ public interface Territory {
     public int getTechnology();
     public int getFood();
     public void setFood(int v);
-
-
+    public void upgradeLevel(int original, int target, int num);
     public List<Integer> getSolidierLevel();
 }

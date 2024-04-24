@@ -7,4 +7,5 @@ public interface Soldier {
     public int getFightValue();
     public void addLevel();
     public int getLevel();
+    public void setLevel(int level);
 }

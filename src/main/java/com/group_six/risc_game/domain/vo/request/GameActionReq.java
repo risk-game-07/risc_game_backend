@@ -15,4 +15,5 @@ public class GameActionReq {
     String from;
     String to;
     int units;
+    int consume;
 }
