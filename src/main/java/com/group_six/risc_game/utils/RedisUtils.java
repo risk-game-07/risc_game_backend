@@ -67,6 +67,9 @@ public class RedisUtils {
         if(!listMap.containsKey(key)){
             return null;
         }
+        if (listMap.get(key).isEmpty()) {
+            return null;
+        }
         return listMap.get(key).remove(0);
     }
 

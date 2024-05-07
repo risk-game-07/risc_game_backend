@@ -3,12 +3,15 @@ package com.group_six.risc_game.service.Impl;
 import com.group_six.risc_game.domain.vo.domain.PlayerStateDTO;
 import com.group_six.risc_game.domain.vo.request.GetTerritoryReq;
 import com.group_six.risc_game.domain.vo.response.WaitOthersResp;
+import com.group_six.risc_game.model.GameRoom;
 import com.group_six.risc_game.model.GameRooms;
 import com.group_six.risc_game.service.RoomService;
 import com.group_six.risc_game.task.CreateRoomTask;
 import com.group_six.risc_game.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -53,5 +56,10 @@ public class RoomServiceImpl implements RoomService {
         return gameRooms.getResult(getTerritoryReq.getRoomId(), getTerritoryReq.getPlayerId());
     }
 
+    @Override
+    public List<String> getPlayersName(String roomId){
+        GameRoom gameRoom = gameRooms.getGameRoom(roomId);
+        return gameRoom.getPlayersName();
+    }
 
 }

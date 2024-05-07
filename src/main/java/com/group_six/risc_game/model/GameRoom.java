@@ -270,6 +270,14 @@ public class GameRoom {
         return curPhase < gamePhase;
     }
 
+    public List<String> getPlayersName(){
+        ArrayList<String> playersName = new ArrayList<>();
+        for(Player player : players){
+            playersName.add(player.getPlayerId());
+        }
+        return playersName;
+    }
+
     public int getGamePhase(){
         return this.gamePhase;
     }

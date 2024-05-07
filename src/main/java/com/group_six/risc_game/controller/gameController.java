@@ -4,6 +4,7 @@ import com.group_six.risc_game.domain.vo.domain.AssignUnitDTO;
 import com.group_six.risc_game.domain.vo.domain.WorldMapDTO;
 import com.group_six.risc_game.domain.vo.request.*;
 import com.group_six.risc_game.domain.vo.response.*;
+import com.group_six.risc_game.service.ChatService;
 import com.group_six.risc_game.service.PlayerService;
 import com.group_six.risc_game.service.RoomService;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/game/start")
@@ -24,7 +26,8 @@ public class gameController {
     RoomService roomService;
     @Autowired
     PlayerService playerService;
-
+    @Autowired
+    ChatService chatService;
 
     @PostMapping("/assignUnit")
     @ApiOperation("assign units of the territory")
@@ -59,6 +62,30 @@ public class gameController {
         return ApiResult.success(playerService.getEachTerritoryInfo(eachTerrInfo.getRoomId(),
                                 eachTerrInfo.getPlayerId(),
                                 eachTerrInfo.getName()));
+    }
+
+    @PostMapping("/chat")
+    @ApiOperation("for the chat of the game")
+    public void sendMessage(@Valid @RequestBody SendMesReq sendMesReq) {
+        chatService.sendMessage(sendMesReq.getFromUSer(),
+                                sendMesReq.getTargetUser(),
+                                sendMesReq.getMessage());
+    }
+
+    @PostMapping("/getMes")
+    @ApiOperation("for the chat of the game")
+    public ApiResult<String> getMessage(@Valid @RequestBody SendMesReq sendMesReq) {
+                return  ApiResult.success(
+                        chatService.getNewMessage(sendMesReq.getFromUSer())
+                );
+    }
+
+    @PostMapping("/getPlayersName")
+    @ApiOperation("get all players Name")
+    public ApiResult<List<String>> getPlayersName(@Valid @RequestBody GetPlayersNameReq getPlayersNameReq) {
+        return ApiResult.success(
+                roomService.getPlayersName(getPlayersNameReq.getRoomId())
+        );
     }
 
 }
