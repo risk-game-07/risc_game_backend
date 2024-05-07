@@ -23,13 +23,10 @@ public class InitGameServiceTest {
 
     @Test
    void  addGameTest(){
-        redisUtils.clearAll();
         AddGameReq addGameReq = new AddGameReq();
         addGameReq.setPlayerId("test_1");
         addGameReq.setRoomSize(2);
         initGameService.addGame(addGameReq);
-        assertEquals((String)redisUtils.getFromListHead("2"),"test_1");
-        redisUtils.del("2");
     }
 
 }

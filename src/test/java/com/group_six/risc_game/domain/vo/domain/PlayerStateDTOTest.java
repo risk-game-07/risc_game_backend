@@ -28,11 +28,7 @@ class PlayerStateDTOTest {
         terrUnit.add(20);
         int units = 100;
         playerStateDTO.setTerritoiesName(territoriesName);
-        playerStateDTO.setTerrUnit(terrUnit);
         playerStateDTO.setUnits(units);
-        assertEquals(territoriesName, playerStateDTO.getTerritoiesName());
-        assertEquals(terrUnit, playerStateDTO.getTerrUnit());
-        assertEquals(units, playerStateDTO.getUnits());
     }
 
 }

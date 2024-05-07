@@ -56,7 +56,6 @@ public class RoomServiceTest{
         roomService.addToRoomWaitList("test_3", 3);
         num = roomService.getCurPlayerNum(3);
         assertEquals(3, num);
-        redisUtils.clearAll();
         for (int i = 0; i < 3; i++)
             redisUtils.getFromListHead("3");
         assertEquals(0, redisUtils.getListLength("3"));

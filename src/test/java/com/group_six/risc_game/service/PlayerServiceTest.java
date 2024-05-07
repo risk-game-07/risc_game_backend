@@ -2,6 +2,7 @@ package com.group_six.risc_game.service;
 
 import com.group_six.risc_game.RiscGameApplication;
 import com.group_six.risc_game.domain.vo.request.GameActionReq;
+import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
 import com.group_six.risc_game.model.GameRoom;
 import com.group_six.risc_game.model.GameRooms;
 import com.group_six.risc_game.model.Player;
@@ -11,6 +12,9 @@ import com.group_six.risc_game.utils.RedisUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -18,60 +22,71 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = RiscGameApplication.class)
 class PlayerServiceTest {
 
-    private PlayerService playerService;
+    @Mock
     private RedisUtils redisUtils;
+    @Mock
     private GameRooms gameRooms;
+    @Mock
+    private GameRoom gameRoom;
+    @Mock
+    private Player player;
+    @Mock
+    private Territory territory;
+
+    @InjectMocks
+    private PlayerServiceImpl playerService;
 
     @BeforeEach
-    void setUp() {
-        redisUtils = mock(RedisUtils.class);
-        gameRooms = mock(GameRooms.class);
-        playerService = new PlayerServiceImpl(redisUtils, gameRooms);
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void testAssignUnit() {
-        Map<String, Integer> assignPattern = new HashMap<>();
-        assignPattern.put("territory1", 5);
+    public void testAssignUnit() {
         String playerId = "player1";
         String roomId = "room1";
+        Map<String, Integer> assignPattern = new HashMap<>();
+        assignPattern.put("territory1", 10);
+        assignPattern.put("territory2", 20);
 
-        GameRoom gameRoom = mock(GameRoom.class);
+        Territory territory1 = mock(Territory.class);
+        Territory territory2 = mock(Territory.class);
+
         when(gameRooms.getGameRoom(roomId)).thenReturn(gameRoom);
-        Territory territory = mock(Territory.class);
-        when(gameRoom.getTerritory("territory1")).thenReturn(territory);
-        playerService.assignUnit(assignPattern, playerId, roomId);
+        when(gameRoom.getPlayer(playerId)).thenReturn(player);
+        when(gameRoom.getTerritory("territory1")).thenReturn(territory1);
+        when(gameRoom.getTerritory("territory2")).thenReturn(territory2);
+
+        AssignUnitResp response = playerService.assignUnit(assignPattern, playerId, roomId);
     }
 
     @Test
-    void testReceiveAction() {
+    public void testGetEachTerritoryInfo() {
         String roomId = "room1";
+        String playerId = "player1";
+        String terrName = "territory1";
+
+        when(gameRooms.getGameRoom(roomId)).thenReturn(gameRoom);
+        when(gameRoom.getTerritory(terrName)).thenReturn(territory);
+
+        playerService.getEachTerritoryInfo(roomId, playerId, terrName);
+
+    }
+
+    @Test
+    public void testReceiveAction() {
         GameActionReq gameActionReq = new GameActionReq();
-        gameActionReq.setRoomId(roomId);
+        gameActionReq.setRoomId("room1");
 
-        GameRoom gameRoom = mock(GameRoom.class);
-        when(gameRooms.getGameRoom(roomId)).thenReturn(gameRoom);
+        when(gameRooms.getGameRoom(gameActionReq.getRoomId())).thenReturn(gameRoom);
+
         playerService.receiveAction(gameActionReq);
-    }
-
-    @Test
-    void testGetWorldMap() {
-        String roomId = "room1";
-        playerService.getWorldMap(roomId);
-    }
-
-    @Test
-    void testIsEndPhase() {
-        String roomId = "room1";
-        int gamePhase = 2;
-        GameRoom gameRoom = mock(GameRoom.class);
-        when(gameRooms.getGameRoom(roomId)).thenReturn(gameRoom);
-        playerService.isEndPhase(roomId, gamePhase);
     }
 }

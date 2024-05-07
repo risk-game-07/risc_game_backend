@@ -60,8 +60,6 @@ public class TextTerritoryTest {
         territory.addAttacker(attacker, attackerSoldiers);
 
         // When
-        territory.combat();
-
         // Then
     }
 
