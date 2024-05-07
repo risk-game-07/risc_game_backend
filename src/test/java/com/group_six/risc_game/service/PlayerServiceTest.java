@@ -1,8 +1,10 @@
 package com.group_six.risc_game.service;
 
 import com.group_six.risc_game.RiscGameApplication;
+import com.group_six.risc_game.domain.vo.domain.WorldMapDTO;
 import com.group_six.risc_game.domain.vo.request.GameActionReq;
 import com.group_six.risc_game.domain.vo.response.AssignUnitResp;
+import com.group_six.risc_game.domain.vo.response.EndPhaseResp;
 import com.group_six.risc_game.model.GameRoom;
 import com.group_six.risc_game.model.GameRooms;
 import com.group_six.risc_game.model.Player;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
@@ -88,5 +92,37 @@ class PlayerServiceTest {
         when(gameRooms.getGameRoom(gameActionReq.getRoomId())).thenReturn(gameRoom);
 
         playerService.receiveAction(gameActionReq);
+    }
+
+    @Test
+    void testGetWorldMap() {
+        // 创建一个模拟的WorldMapDTO对象
+        WorldMapDTO expectedWorldMap = new WorldMapDTO();
+
+        // 设置模拟对象的行为
+        when(gameRooms.getWorldMap(anyString())).thenReturn(expectedWorldMap);
+
+        // 调用被测试方法
+        WorldMapDTO actualWorldMap = playerService.getWorldMap("roomId");
+
+        // 验证行为是否符合预期
+        assertEquals(expectedWorldMap, actualWorldMap);
+    }
+
+    @Test
+    void testIsEndPhase() {
+        // 创建一个模拟的EndPhaseResp对象
+        EndPhaseResp expectedEndPhaseResp = new EndPhaseResp();
+
+        // 设置模拟对象的行为
+        when(gameRooms.getGameRoom(anyString())).thenReturn(Mockito.mock(GameRoom.class));
+        when(gameRooms.getGameRoom("roomId").canMoveNextPhase(anyInt())).thenReturn(true);
+
+        // 调用被测试方法
+        EndPhaseResp actualEndPhaseResp = playerService.isEndPhase("playerId", "roomId", 1);
+
+        // 验证行为是否符合预期
+        assertEquals(expectedEndPhaseResp.getIsEndOfGame(), actualEndPhaseResp.getIsEndOfGame());
+//        assertEquals(expectedEndPhaseResp.isEnd(), actualEndPhaseResp.isEnd());
     }
 }

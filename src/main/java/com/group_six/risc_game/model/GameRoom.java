@@ -116,39 +116,39 @@ public class GameRoom {
         return null;
     }
 
-    String tryMove(String playerId, String from, String to, int units){
-        //TODO: change it to reposibiliy link list
-        // choose player
-        Player curPlayer = playernameMap.get(playerId);
-        if(curPlayer == null){
-            return "cannot find this player ID in " + roomId;
-        }
-        //check whether source territory blong to player
-        if(!curPlayer.isMyTerritory(from)){
-            return from + " do not blong to " + playerId;
-        }
-
-        if(!curPlayer.isMyTerritory(to)){
-            return to + " do not blong to " + playerId;
-        }
-
-        // check whether have enough units
-        if(territoryNameMap.get(from).getSoliderNum() < units){
-            return "do not have enough units";
-        }
-
-        // check movement
-        List<Territory> neibor = territoryNameMap.get(from).getNeighbors();
-        if(!neibor.contains(territoryNameMap.get(to))){
-            return "they are not neibour";
-        }
-        /*
-        AbstractChecker moveChecker = new MovementChecker(null);
-        if(!moveChecker.checkAction( territoryNameMap.get(from), territoryNameMap.get(to),curPlayer)){
-            return "you cannot move from " + from + " to " + to;
-        }*/
-        return null;
-    }
+//    String tryMove(String playerId, String from, String to, int units){
+//        //TODO: change it to reposibiliy link list
+//        // choose player
+//        Player curPlayer = playernameMap.get(playerId);
+//        if(curPlayer == null){
+//            return "cannot find this player ID in " + roomId;
+//        }
+//        //check whether source territory blong to player
+//        if(!curPlayer.isMyTerritory(from)){
+//            return from + " do not blong to " + playerId;
+//        }
+//
+//        if(!curPlayer.isMyTerritory(to)){
+//            return to + " do not blong to " + playerId;
+//        }
+//
+//        // check whether have enough units
+//        if(territoryNameMap.get(from).getSoliderNum() < units){
+//            return "do not have enough units";
+//        }
+//
+//        // check movement
+//        List<Territory> neibor = territoryNameMap.get(from).getNeighbors();
+//        if(!neibor.contains(territoryNameMap.get(to))){
+//            return "they are not neibour";
+//        }
+//        /*
+//        AbstractChecker moveChecker = new MovementChecker(null);
+//        if(!moveChecker.checkAction( territoryNameMap.get(from), territoryNameMap.get(to),curPlayer)){
+//            return "you cannot move from " + from + " to " + to;
+//        }*/
+//        return null;
+//    }
 
     // @return null :success
     public synchronized String receiveOrder(GameActionReq gameActionReq){

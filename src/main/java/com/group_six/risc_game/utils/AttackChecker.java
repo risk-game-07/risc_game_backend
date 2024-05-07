@@ -25,16 +25,16 @@ public class AttackChecker extends AbstractChecker{
         return false;
     }
 
-    private boolean dfs(Territory current, Territory to, Player player, Set<Territory> visited) {
-        if (visited.contains(current)) return  false;
-        visited.add(current);
-        if (current.equals(to)) return true;
-        if (!current.getOwner().equals(player.getPlayerId())) return false;
-
-        for (Territory t : current.getNeighbors()) {
-            if (dfs(t, to, player, visited)) return true;
-        }
-
-        return false;
-    }
+//    private boolean dfs(Territory current, Territory to, Player player, Set<Territory> visited) {
+//        if (visited.contains(current)) return  false;
+//        visited.add(current);
+//        if (current.equals(to)) return true;
+//        if (!current.getOwner().equals(player.getPlayerId())) return false;
+//
+//        for (Territory t : current.getNeighbors()) {
+//            if (dfs(t, to, player, visited)) return true;
+//        }
+//
+//        return false;
+//    }
 }

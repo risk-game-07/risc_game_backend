@@ -4,9 +4,13 @@ import com.group_six.risc_game.model.Player;
 import com.group_six.risc_game.model.Territory;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -48,4 +52,5 @@ class AttackCheckerTest {
         // 验证结果
         assertFalse(result);
     }
+
 }
